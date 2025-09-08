@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="products_dao" class="dao.ProductsDAO">
+		<property name="sqlsession" ref="sqlSessionBean"></property>
+	</bean>
+
+	<bean id="cart_dao" class="dao.CartDAO">
+		<property name="sqlsession" ref="sqlSessionBean"></property>
+	</bean>
+
+	<bean id="order_dao" class="dao.OrdersDAO">
+		<property name="sqlSession" ref="sqlSessionBean"></property>
+	</bean>
+
+	<bean id="user_dao" class="dao.UserDAO">
+		<property name="sqlsession" ref="sqlSessionBean" />
+	</bean>
+
+	<bean id="review_dao" class="dao.ReviewDAO">
+		<property name="sqlSession" ref="sqlSessionBean" />
+	</bean>
+
+	<bean id="payment_dao" class="dao.PaymentDAO">
+		<property name="sqlsession" ref="sqlSessionBean"></property>
+	</bean>
+
+	<bean id="orderDetail_dao" class="dao.Order_detailDAO">
+		<property name="sqlSession" ref="sqlSessionBean" />
+	</bean>
+
+	<bean id="category_dao" class="dao.CategoryDAO">
+		<property name="sqlSession" ref="sqlSessionBean" />
+	</bean>
+
+	<bean id="wishList_dao" class="dao.WishlistDAO">
+		<property name="sqlSession" ref="sqlSessionBean" />
+	</bean>
+
+	<bean id="notice_dao" class="dao.NoticeDAO">
+		<property name="sqlsession" ref="sqlSessionBean"></property>
+	</bean>
+
+	<bean id="inquiry_dao" class="dao.InquiryDAO">
+		<property name="sqlsession" ref="sqlSessionBean"></property>
+	</bean>
+
+	<bean id="adminOrder_dao" class="dao.AdminOrderDAO">
+		<property name="sqlSession" ref="sqlSessionBean" />
+	</bean>
+	
+	<bean id="adminProduct_dao" class="dao.AdminProductDAO">
+		<property name="sqlSession" ref="sqlSessionBean" />
+	</bean>
+	
+	<bean id="adminUser_dao" class="dao.AdminUserDAO">
+		<property name="sqlSession" ref="sqlSessionBean" />
+	</bean>
+	
+	<bean id="adminOrderDetail_dao" class="dao.AdminOrderDetailDAO">
+		<property name="sqlSession" ref="sqlSessionBean" />
+	</bean>
+	
+	<bean id="adminPayment_dao" class="dao.AdminPaymentDAO">
+		<property name="sqlSession" ref="sqlSessionBean" />
+	</bean>
+	
+	<bean id="admin_daoBean" class="dao.AdminDAO">
+		<property name="sqlSession" ref="sqlSessionBean"></property>
+	</bean>
+	
+	<bean id="adminReturn_daoBean" class="dao.AdminReturnDAO">
+		<property name="sqlSession" ref="sqlSessionBean"></property>
+	</bean>
+
+</beans>

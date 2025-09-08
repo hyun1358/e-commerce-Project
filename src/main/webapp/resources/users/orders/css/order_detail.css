@@ -1,0 +1,350 @@
+@charset "UTF-8";
+
+/* 전체 레이아웃 */
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #f5f5f5;
+	color: #333;
+}
+
+.main-wrapper {
+	display: flex;
+	width: 1300px;
+	margin: 0 auto;
+	padding-top: 18px; /* 기존 18px → navigation과 order 간격 줄이기 */
+}
+
+.order-name{
+	font-size: 18px;
+	font-weight: 700;
+	color: #222;
+}
+.order-name:hover{
+	 text-decoration: underline;
+	  cursor: pointer; /* 추가 */
+}
+
+/* 공통 컨테이너 */
+.container,
+.order_title,
+.product-section,
+.orders-information,
+.payment-information {
+	flex: 1;
+	max-width: 1300px;
+	margin: 0 auto;
+	box-sizing: border-box;
+}
+
+/* 주문 상세 박스 */
+.order-details-wrapper {
+	background-color: #fff;
+	border-radius: 8px;
+	padding: 16px;
+	margin-bottom: 24px;
+	box-sizing: border-box;
+}
+
+/* 주문 타이틀 */
+.order_title h3 {
+	font-size: 18px;
+	background-color: #fff;
+	border-radius: 8px;
+	padding: 16px 20px 6px;
+	font-weight: normal;
+	border-bottom: 1px solid #ddd;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+.order_title .order_id{
+	font-weight:normal;
+	font-size: 14px; 
+}
+
+/* 상품 섹션 */
+.product-section {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	border-radius: 5px;
+}
+
+/* 상품 카드 */
+.item {
+	width: 100%;
+	display: flex;
+	align-items: flex-start;
+	gap: 40px;
+	padding: 14px 16px 10px;
+	border-radius: 10px;
+	background-color: #fff;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+	box-sizing: border-box;
+}
+
+.item img {
+	 display: block; /* 추가 */
+	width: 110px;
+	height: 110px;
+	object-fit: cover;
+	border-radius: 8px;
+	flex-shrink: 0;
+	transition: transform 0.2s ease;
+}
+.item img:hover {
+	transform: scale(1.05);
+}
+.order-image {
+  position: relative;
+  overflow: hidden; /* 추가 */
+}
+
+.blurred-image {
+    filter: brightness(0.9) grayscale(0.2);
+    opacity: 0.6;
+    pointer-events: none; /* 클릭 방지 */
+}
+
+.sold-out-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(128, 128, 128, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none; /* 클릭 방지 */
+    z-index: 2;
+}
+
+.sold-out-text {
+    color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    background: rgba(50, 50, 50, 0.6);
+    padding: 6px 16px;
+    border-radius: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    letter-spacing: 1px;
+}
+.item-details {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	padding-right: 10px;
+	box-sizing: border-box;
+}
+
+.item-details h4 {
+	margin: 0 0 6px;
+	font-size: 17px;
+	font-weight: 600;
+	color: #222;
+}
+
+.item-info {
+	font-size: 14px;
+	color: #555;
+	margin-bottom: 6px;
+}
+
+.item-info p {
+	margin: 3px 0;
+}
+
+/* 가격 & 버튼 영역 */
+.price-button-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top:5px;
+}
+
+.price {
+	font-size: 20px;
+	font-weight: bold;
+	color: #4169e1;/* #000 */
+}
+
+/* 버튼 영역 */
+.button-section {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+.button-section button {
+  background-color: #f7f9fa;   /* 밝은 회청색 */
+  color: #4f5bd5;              /* 연보라/네이비 계열 */
+  border: 1px solid #d5d9f2;   /* 연한 보더 */
+  padding: 6px 11px;
+  font-size: 13px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.button-section button:hover {
+	 background-color: #e6ecfc;   /* hover 시 살짝 진한 블루 */
+  color: #3943b7;   
+   /* border-color: #3943b7; 추가 */
+}
+
+
+/* .button-section button:nth-child(1) { 배송조회
+	background-color: #4169e1;
+	color: white;
+	  border-color: #4169e1;
+}
+
+.button-section button:nth-child(1):hover {
+		background-color: #3a5ecc;
+	} */
+/* 배송지/결제 정보 전체 감싸는 박스 */
+.info-wrapper {
+	background-color: #fff;
+	border-radius: 8px;
+	padding: 16px;
+	margin-top: 24px;
+	display: flex;
+	gap: 30px;
+	box-sizing: border-box;
+}
+
+/* 배송지 & 결제 정보 */
+.orders-information {
+	background-color: #fff;
+	border-radius: 8px;
+	padding: 16px;
+	 display: flex;
+  flex-direction: column;
+   gap: 5px;
+}
+
+.payment-information {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  	
+}
+
+.orders-information h3,
+.payment-information h3 {
+	margin-bottom: 10px;
+	font-size: 17px;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 5px;
+}
+
+.orders-information p,
+.payment-information p {
+	margin: 5px 0;
+	font-size: 16px;
+}
+
+
+/* .paid_total_amount {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  letter-spacing: -0.3px;
+  margin-top: 15px;
+  font-size: 16px;
+  background: linear-gradient(90deg, #4169e1, #3943b7);
+  padding: 12px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(65, 105, 225, 0.4);
+  transition: background 0.3s ease;
+}
+.paid_total_amount strong {
+  font-size: 28px;
+  margin-right: 10px;
+}  */
+
+.paid_total_amount {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #4169e1;
+  font-weight: 700;
+  font-size: 18px;
+  border: 2px solid #4169e1;
+  border-radius: 8px;
+  padding: 10px 20px;
+  background-color: #f0f4ff;
+ /*  box-shadow: 0 0 10px rgba(65, 105, 225, 0.2); */
+}
+
+.paid_total_amount strong {
+  font-size: 28px;
+  margin-right: 10px;
+}
+
+
+/* .paid_total_amount {
+  letter-spacing: -0.5px;
+  color: #d32f2f;
+  font-weight: 800;
+  font-size: 17px;
+  margin-top: 15px;
+}
+
+.paid_total_amount strong {
+  font-size: 30px;
+  font-weight: 900;
+  margin-right: 10px;
+  text-shadow: 1px 1px 3px rgba(211, 47, 47, 0.6);
+}*/
+
+@media (max-width: 768px) {
+  .main-wrapper {
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .item {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .info-wrapper {
+    flex-direction: column;
+  }
+   .item img {
+        width: 80%;
+        max-width: 300px; /* 추가 추천 */
+        height: auto;
+    }
+
+  .item-details h4 {
+    font-size: 16px;
+  }
+
+  .price {
+    font-size: 18px;
+  }
+
+  .button-section {
+    flex-direction: column;
+    gap: 6px;
+  }
+  
+}
+
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    color: #e63946;
+  }
+  50% {
+    transform: scale(1.1);
+    color: #f94144;
+  }
+}

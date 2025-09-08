@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminreturn">
+
+	<select id="returnCount" resultType="int">
+		select count(order_id) from
+		RETURN_REQUEST_VIEW
+	</select>
+
+	<select id="returnPagingList" parameterType="java.util.Map"
+		resultType="vo.AdminReturnVO">
+		select * from
+		(select inner_table.*, ROWNUM as rnum
+		from
+		(select * from RETURN_REQUEST_VIEW
+		ORDER BY order_date DESC, user_idx
+		DESC, order_id DESC
+		)inner_table where
+		ROWNUM &lt;= #{endRow}
+		)
+		where rnum
+		&gt;=
+		#{startRow}
+	</select>
+
+	<select id="getReturnListByOrderProductPairs"
+		parameterType="java.util.List" resultType="vo.AdminReturnVO">
+		SELECT *
+		FROM RETURN_REQUEST_VIEW
+		WHERE
+		<foreach collection="list" item="item" separator=" OR ">
+			(order_id =
+			#{item.order_id} AND product_id = #{item.product_id})
+		</foreach>
+	</select>
+
+	<select id="countReturnsSearch"
+		parameterType="vo.SearchReturnVO" resultType="int">
+		SELECT COUNT(*) FROM RETURN_REQUEST_VIEW
+		<where>
+			<if
+				test="searchCategory != null and searchKeyword != null and searchKeyword != ''">
+				<choose>
+					<when test="searchCategory == 'user_idx'">
+						user_idx = #{searchKeyword}
+					</when>
+					<when test="searchCategory == 'shipping_name'">
+						user_name LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test="searchCategory == 'phone'">
+						phone LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test="searchCategory == 'address'">
+						delivery_address LIKE '%' || #{searchKeyword} ||
+						'%'
+					</when>
+					<when test="searchCategory == 'order_id'">
+						order_id LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test="searchCategory == 'product_name'">
+						product_name LIKE '%' || #{searchKeyword} || '%'
+					</when>
+				</choose>
+			</if>
+			<!-- 날짜 조건: 컬럼을 dateType에 따라 선택 -->
+			<if test="dateStart != null and dateStart != ''">
+				<choose>
+					<when test="dateType == 'order_date'">
+						AND order_date &gt;= TO_DATE(#{dateStart},
+						'YYYY-MM-DD')
+					</when>
+					<when test="dateType == 'request_date'">
+						AND request_date &gt;= TO_DATE(#{dateStart},
+						'YYYY-MM-DD')
+					</when>
+				</choose>
+			</if>
+
+			<if test="dateEnd != null and dateEnd != ''">
+				<choose>
+					<when test="dateType == 'order_date'">
+						AND order_date &lt; TO_DATE(#{dateEnd},
+						'YYYY-MM-DD') + 1
+					</when>
+					<when test="dateType == 'request_date'">
+						AND request_date &lt; TO_DATE(#{dateEnd},
+						'YYYY-MM-DD') + 1
+					</when>
+				</choose>
+			</if>
+			<!-- 처리 상태 -->
+			<if
+				test="processStatus != null and processStatus != '' and processStatus != 'all'">
+				AND process_status = #{processStatus}
+			</if>
+			<!-- 요청 유형 -->
+			<if
+				test="refundStatus != null and refundStatus != '' and refundStatus != 'all'">
+				AND request_type = #{refundStatus}
+			</if>
+		</where>
+
+	</select>
+
+	<select id="searchReturnsPaging" parameterType="java.util.Map"
+		resultType="vo.AdminReturnVO">
+		select * from(
+		select inner_table.*, ROWNUM as rnum from(
+		SELECT * FROM
+		RETURN_REQUEST_VIEW
+		<where>
+			<if
+				test="search.searchCategory != null and search.searchKeyword != null and search.searchKeyword != ''">
+				<choose>
+					<when test="search.searchCategory == 'user_idx'">
+						user_idx = #{search.searchKeyword}
+					</when>
+					<when test="search.searchCategory == 'shipping_name'">
+						user_name LIKE '%' || #{search.searchKeyword} ||
+						'%'
+					</when>
+					<when test="search.searchCategory == 'phone'">
+						phone LIKE '%' || #{search.searchKeyword} || '%'
+					</when>
+					<when test="search.searchCategory == 'address'">
+						delivery_address LIKE '%' ||
+						#{search.searchKeyword} ||
+						'%'
+					</when>
+					<when test="search.searchCategory == 'order_id'">
+						order_id LIKE '%' || #{search.searchKeyword} || '%'
+					</when>
+					<when test="search.searchCategory == 'product_name'">
+						product_name LIKE '%' || #{search.searchKeyword} ||
+						'%'
+					</when>
+				</choose>
+			</if>
+			<!-- 날짜 조건: 컬럼을 dateType에 따라 선택 -->
+			<if test="search.dateStart != null and search.dateStart != ''">
+				<choose>
+					<when test="search.dateType == 'order_date'">
+						AND order_date &gt;= TO_DATE(#{search.dateStart},
+						'YYYY-MM-DD')
+					</when>
+					<when test="search.dateType == 'request_date'">
+						AND request_date &gt;= TO_DATE(#{search.dateStart},
+						'YYYY-MM-DD')
+					</when>
+				</choose>
+			</if>
+
+			<if test="search.dateEnd != null and search.dateEnd != ''">
+				<choose>
+					<when test="search.dateType == 'order_date'">
+						AND order_date &lt; TO_DATE(#{search.dateEnd},
+						'YYYY-MM-DD') + 1
+					</when>
+					<when test="search.dateType == 'request_date'">
+						AND request_date &lt; TO_DATE(#{search.dateEnd},
+						'YYYY-MM-DD') + 1
+					</when>
+				</choose>
+			</if>
+			<!-- 처리 상태 -->
+			<if
+				test="search.processStatus != null and search.processStatus != '' and search.processStatus != 'all'">
+				AND process_status = #{search.processStatus}
+			</if>
+			<!-- 요청 유형 -->
+			<if
+				test="search.refundStatus != null and search.refundStatus != '' and search.refundStatus != 'all'">
+				AND request_type = #{search.refundStatus}
+			</if>
+		</where>
+		<choose>
+			<when test="search.sortOption == 'latest'">
+				ORDER BY order_date DESC, user_idx DESC, order_id
+				DESC
+			</when>
+			<when test="search.sortOption == 'earliest'">
+				ORDER BY order_date, user_idx, order_id
+			</when>
+			<when test="search.sortOption == 'receipt_asc'">
+				ORDER BY request_date ASC, user_idx ASC, order_id ASC
+			</when>
+			<when test="search.sortOption == 'receipt_desc'">
+				ORDER BY request_date DESC, user_idx desc, order_id
+				DESC
+			</when>
+			<when test="search.sortOption == 'refund_high'">
+				ORDER BY amount DESC, user_idx desc, order_id DESC
+			</when>
+			<when test="search.sortOption == 'refund_low'">
+				ORDER BY amount ASC, user_idx ASC, order_id ASC
+			</when>
+			<otherwise>
+				ORDER BY order_date DESC, user_idx DESC, order_id DESC
+			</otherwise>
+		</choose>
+
+		) inner_table
+		WHERE ROWNUM &lt;= #{endRow}
+		)
+		WHERE rnum &gt;= #{startRow}
+	</select>
+
+	<!-- 상태 확인용 -->
+	<select id="checkProcessStatus" parameterType="java.util.Map"
+		resultType="String">
+		select process_status from RETURN_REQUEST_VIEW WHERE
+		order_id = #{order_id} AND product_id = #{product_id}
+	</select>
+
+
+	<!-- 일괄 상태 변경용 -->
+	<update id="updateReturnStatusBatch" parameterType="list">
+		<foreach collection="list" item="item" separator=";">
+			UPDATE
+			order_detail
+			SET refund_status = #{item.refund_status}
+			WHERE order_id =
+			#{item.order_id} AND product_id = #{item.product_id}
+		</foreach>
+	</update>
+
+	<!-- 개별 상태 변경용 -->
+	<update id="updateReturnStatus" parameterType="vo.RequestFormVO">
+		UPDATE
+		order_detail
+		SET refund_status = #{refund_status}
+		WHERE order_id =
+		#{order_id}
+		AND
+		product_id = #{product_id}
+	</update>
+
+	<delete id="deleteReviewItems" parameterType="java.util.List">
+		delete from review where
+		<foreach collection="list" item="item" separator=" OR ">
+			(order_id =
+			#{item.order_id} AND product_id = #{item.product_id})
+		</foreach>
+	</delete>
+
+	<delete id="deleteApprovalPendingItems"
+		parameterType="java.util.List">
+		delete from approval_pending where
+		<foreach collection="list" item="item" separator=" OR ">
+			(related_order_id = #{item.order_id} AND related_product_id =
+			#{item.product_id})
+		</foreach>
+	</delete>
+
+
+	<delete id="deleteReturnItems" parameterType="java.util.List">
+		DELETE FROM order_detail
+		WHERE
+		<foreach collection="list" item="item" separator=" OR ">
+			(order_id =
+			#{item.order_id} AND product_id = #{item.product_id})
+		</foreach>
+	</delete>
+
+</mapper>  
+
+
+
+
+
+
+
+
+
+
+
+

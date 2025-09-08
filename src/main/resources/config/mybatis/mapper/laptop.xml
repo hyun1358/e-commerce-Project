@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="l">
+	<resultMap id="productMap" type="pro">
+		<result property="product_id" column="product_id" />
+		<result property="category_id" column="category_id" />
+		<result property="product_name" column="product_name" />
+		<result property="stock" column="stock" />
+		<result property="price" column="price" />
+		<result property="sale_price" column="sale_price" />
+		<result property="company" column="company" />
+		<result property="description" column="description" />
+		<result property="image1" column="image1" />
+		<result property="image2" column="image2" />
+		<result property="image3" column="image3" />
+		<result property="image4" column="image4" />
+		<result property="image5" column="image5" />
+		<result property="regdate" column="regdate" />
+		<result property="sales_volume" column="sales_volume" />
+		<result property="final_price" column="final_price" /><!-- vw_product_with_rating -->
+		<result property="discount_percent" column="discount_percent" />
+		<result property="avg_rating" column="avg_rating" />
+		<result property="review_count" column="review_count" />
+	</resultMap>
+
+	<resultMap id="allProductMap" type="vo.AllProductsVO">
+		<result property="product_id" column="product_id" />
+		<result property="category_id" column="category_id" />
+		<result property="product_name" column="product_name" />
+		<result property="stock" column="stock" />
+		<result property="price" column="price" />
+		<result property="sale_price" column="sale_price" />
+		<result property="company" column="company" />
+		<result property="description" column="description" />
+		<result property="image1" column="image1" />
+		<result property="image2" column="image2" />
+		<result property="image3" column="image3" />
+		<result property="image4" column="image4" />
+		<result property="image5" column="image5" />
+		<result property="regdate" column="regdate" />
+		<result property="sales_volume" column="sales_volume" />
+		<result property="final_price" column="final_price" />
+		<result property="discount_percent" column="discount_percent" />
+		<result property="avg_rating" column="avg_rating" />
+		<result property="review_count" column="review_count" />
+	</resultMap>
+
+	<resultMap id="bestProductMap" type="vo.BestProductVO">
+		<result property="product_id" column="product_id" />
+		<result property="category_id" column="category_id" />
+		<result property="product_name" column="product_name" />
+		<result property="stock" column="stock" />
+		<result property="price" column="price" />
+		<result property="sale_price" column="sale_price" />
+		<result property="company" column="company" />
+		<result property="description" column="description" />
+		<result property="image1" column="image1" />
+		<result property="image2" column="image2" />
+		<result property="image3" column="image3" />
+		<result property="image4" column="image4" />
+		<result property="image5" column="image5" />
+		<result property="regdate" column="regdate" />
+		<result property="sales_volume" column="sales_volume" />
+		<result property="final_price" column="final_price" />
+		<result property="discount_percent" column="discount_percent" />
+		<result property="avg_rating" column="avg_rating" />
+		<result property="review_count" column="review_count" />
+	</resultMap>
+
+	<!-- 전체 상품중 가장 판매량이 좋은 8개 -->
+	<select id="best_list" resultMap="bestProductMap">
+		SELECT *
+		FROM (
+		SELECT *
+		FROM
+		PRODUCT_VIEW
+		ORDER BY sales_volume DESC, product_id ASC
+		)
+		WHERE ROWNUM &lt;= 8
+	</select>
+
+	<select id="best_list_with_rating" resultMap="bestProductMap">
+		SELECT *
+		FROM (
+		SELECT *
+		FROM
+		VW_PRODUCT_WITH_RATING
+		ORDER BY sales_volume DESC
+		)
+		WHERE ROWNUM &lt;= 8
+	</select>
+	
+	<select id="bestProductsWithSort" parameterType="java.util.Map" resultMap="bestProductMap">
+		SELECT *
+		FROM VW_PRODUCT_WITH_RATING
+		WHERE product_id IN
+	    <foreach item="id" collection="product_ids" open="(" separator="," close=")">
+	        #{id}
+	    </foreach>
+		<choose>
+			<when test="sort == 'sales'">ORDER BY sales_volume DESC, product_id ASC</when>
+			<when test="sort == 'price_asc'">ORDER BY final_price ASC, product_id ASC</when>
+			<when test="sort == 'price_desc'">ORDER BY final_price DESC, product_id ASC</when>
+			<when test="sort == 'rating'">ORDER BY avg_rating DESC, review_count DESC, product_id ASC</when>
+			<when test="sort == 'review_count'">ORDER BY review_count DESC, product_id ASC</when>
+			<when test="sort == 'latest'">ORDER BY regdate DESC, product_id ASC</when>
+			<otherwise>ORDER BY sales_volume DESC, product_id ASC</otherwise>
+		</choose>
+	</select>
+	
+	<select id="all_products_list" resultMap="allProductMap">
+		SELECT * FROM VW_PRODUCT_WITH_RATING 
+		
+	</select>
+	
+	<select id="sales_product_list" resultMap="allProductMap">
+		SELECT * FROM VW_PRODUCT_WITH_RATING
+		where final_price is not null
+		order by final_price asc
+		
+	</select>
+	
+	<select id="salesProductsWithSort" parameterType="java.util.Map" resultMap="allProductMap">
+		SELECT * FROM VW_PRODUCT_WITH_RATING
+		where final_price is not null
+		<choose>
+			<when test="sort == 'sales'">ORDER BY sales_volume DESC</when>
+			<when test="sort == 'price_asc'">ORDER BY final_price ASC</when>
+			<when test="sort == 'price_desc'">ORDER BY final_price DESC</when>
+			<when test="sort == 'rating'">ORDER BY avg_rating DESC,review_count DESC</when>
+			<when test="sort == 'review_count'">ORDER BY review_count DESC</when>
+			<when test="sort == 'latest'">ORDER BY regdate DESC</when>
+			<otherwise>ORDER BY sales_volume DESC</otherwise>
+		</choose>
+	</select>
+
+	<select id="allProductsWithSort" parameterType="java.util.Map" resultMap="allProductMap">
+		SELECT * FROM VW_PRODUCT_WITH_RATING
+		<choose>
+			<when test="sort == 'sales'">ORDER BY sales_volume DESC</when>
+			<when test="sort == 'price_asc'">ORDER BY final_price ASC</when>
+			<when test="sort == 'price_desc'">ORDER BY final_price DESC</when>
+			<when test="sort == 'rating'">ORDER BY avg_rating DESC,review_count DESC</when>
+			<when test="sort == 'review_count'">ORDER BY review_count DESC</when>
+			<when test="sort == 'latest'">ORDER BY regdate DESC</when>			<otherwise>ORDER BY sales_volume DESC</otherwise>
+		</choose>
+	</select>
+
+	<!-- 하위카테고리만 보이기 -->
+	<select id="categoryProducts" parameterType="int"
+		resultMap="productMap">
+		SELECT * FROM vw_product_with_rating WHERE category_id =
+		#{category_id}
+	</select>
+
+	<!-- 검색하기 -->
+	<select id="product_search" parameterType="String"
+		resultMap="productMap">
+		select * from vw_product_with_rating
+		 WHERE 
+    UPPER(product_name) LIKE '%' || UPPER(#{keyword}) || '%'
+    OR name = #{keyword}
+	</select>
+
+	<!-- 검색된 결과를 정렬 -->
+	<select id="searchWithSort" parameterType="java.util.Map"
+		resultMap="productMap">
+		SELECT * FROM vw_product_with_rating
+		    WHERE 
+	    UPPER(product_name) LIKE '%' || UPPER(#{keyword}) || '%'
+	    OR name = #{keyword}
+		<choose>
+			<when test="sort == 'sales'">ORDER BY sales_volume DESC</when>
+			<when test="sort == 'price_asc'">ORDER BY final_price ASC</when>
+			<when test="sort == 'price_desc'">ORDER BY final_price DESC</when>
+			<when test="sort == 'rating'">ORDER BY avg_rating DESC,review_count DESC</when>
+			<when test="sort == 'review_count'">ORDER BY review_count DESC</when>
+			<when test="sort == 'latest'">ORDER BY regdate DESC</when>
+			<otherwise>ORDER BY sales_volume DESC</otherwise>
+		</choose>
+	</select>
+
+	<select id="categoryWithSort" parameterType="java.util.Map" resultMap="productMap">
+		SELECT *
+		FROM vw_product_with_rating
+		WHERE category_id = #{category_id}
+		<choose>
+			<when test="sort == 'sales'">ORDER BY sales_volume DESC</when>
+			<when test="sort == 'price_asc'">ORDER BY final_price ASC</when>
+			<when test="sort == 'price_desc'">ORDER BY final_price DESC</when>
+			<when test="sort == 'rating'">ORDER BY avg_rating DESC,review_count DESC</when>
+			<when test="sort == 'review_count'">ORDER BY review_count DESC</when>
+			<when test="sort == 'latest'">ORDER BY regdate DESC</when>
+			<otherwise>ORDER BY sales_volume DESC</otherwise>
+		</choose>
+	</select>
+
+
+	<!-- 상품디테일 출력을 위해 상품하나만 조회 -->
+	<select id="product_one" parameterType="int" resultMap="productMap"> select * from PRODUCT_VIEW where product_id = #{product_id} </select>
+	
+	<select id="main_product_one" parameterType="int" resultType="vo.AllProductsVO"> select * from VW_PRODUCT_WITH_RATING where product_id = #{product_id} </select>
+
+	<select id="laptop_spec_list" resultType="vo.LaptopSpecVO"
+		parameterType="java.util.List">
+		SELECT la.*, TO_CHAR(release_date, 'YYYY-MM-DD') as formatter_date
+		FROM laptop_spec la WHERE product_id IN
+		<foreach item="id" collection="list" open="(" separator=","
+			close=")"> #{id} </foreach>
+	</select>
+
+
+	<!-- 재고및 판매량 업데이트 -->
+	<update id="laptop_update" parameterType="java.util.Map"> update product set
+		stock = stock - #{stock}, sales_volume = sales_volume + #{stock} where
+		product_id = #{product_id} AND stock >= #{stock}
+	</update>
+</mapper>
+
+<!-- 상위카테고리 선택시 하위 포함 전체 보기 SELECT * FROM product WHERE category_id IN ( 
+	SELECT category_id FROM category WHERE parent_category_id = #{parentId} ) -->
+
+
+<!-- 노트북 총 개수 -->
+<!-- <select id="category_count" parameterType="int" resultType="int"> SELECT 
+	COUNT(*) FROM product WHERE category_id=#{category_id} </select> -->
+
+
+
+
+
+
+
+
+
+

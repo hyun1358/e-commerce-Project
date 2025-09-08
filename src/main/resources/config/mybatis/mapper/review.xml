@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="r">
+	<!-- 해당 상품의 리뷰리스트 -->
+	<select id="review_list" parameterType="int" resultType="review">
+		select *
+		from review_with_userid where product_id = #{product_id} order by
+		regdate desc
+	</select>
+
+	<!-- 리뷰 id로 해당 리뷰만 가져옴 -->
+	<select id="review_selectone" resultType="review"
+		parameterType="review">
+		select * from review where review_id = #{review_id}
+		and
+		order_id = #{order_id}
+		and user_idx = #{user_idx}
+	</select>
+
+	<!-- 리뷰 개수 -->
+	<select id="review_cnt" parameterType="int" resultType="int">
+		SELECT
+		COUNT(*)
+		FROM review
+		WHERE product_id = #{product_id}
+	</select>
+
+	<!-- 평점 -->
+	<select id="review_avg" parameterType="int" resultType="double">
+		SELECT
+		ROUND(AVG(star_rating), 2) AS avg_rating
+		FROM review
+		WHERE product_id =
+		#{product_id}
+
+	</select>
+
+	<!-- 리뷰추가 -->
+	<insert id="review_insert" parameterType="review">
+		INSERT INTO review (
+		review_id, user_idx, product_id, title, content, star_rating,
+		image1,
+		admin_id, admin_reply, is_visible, regdate,order_id
+		) VALUES (
+		seq_review_idx.nextVal, #{user_idx}, #{product_id}, #{title},
+		#{content}, #{star_rating},
+		#{image1 ,jdbcType=VARCHAR}, null, null,
+		'Y',sysdate,#{order_id}
+		)
+	</insert>
+
+	<!-- 리뷰수정 -->
+	<update id="review_modify" parameterType="review">
+		update review
+		set
+		star_rating = #{star_rating},
+		title = #{title},
+		content = #{content},
+		image1 = #{image1 , jdbcType=VARCHAR}
+		where review_id = #{review_id}
+		and order_id =
+		#{order_id}
+		and user_idx = #{user_idx}
+	</update>
+
+	<!-- 페이징 -->
+	<select id="review_paging" parameterType="java.util.Map"
+		resultType="review">
+	SELECT * FROM (
+	SELECT R.*, ROWNUM AS RN FROM (
+	SELECT * FROM review_with_userid
+	WHERE product_id = #{product_id}
+	ORDER BY regdate DESC
+	) R
+	WHERE ROWNUM &lt;= #{end}
+	)
+	WHERE RN >= #{start}
+	</select>
+	
+	<select id="review_filter_paging" parameterType="java.util.Map" resultType="review">
+		SELECT * FROM 
+		(
+			SELECT R.*, ROWNUM AS RN FROM 
+			(
+				SELECT * FROM review_with_userid
+				WHERE product_id = #{product_id}
+				<choose>
+					<when test="sort == 'newest'">
+						order by regdate desc					
+					</when>
+					<when test="sort == 'oldest'">
+						order by regdate asc					
+					</when>
+					<when test="sort == 'highest'">
+						order by star_rating desc					
+					</when>
+					<when test="sort == 'lowest'">
+						order by star_rating asc					
+					</when>
+				</choose>
+			) R
+			WHERE ROWNUM &lt;= #{end}
+		)
+		WHERE RN >= #{start}
+	</select>
+	
+	<select id="user_view_count" resultType="java.util.Map" parameterType="int">
+		select 
+			count(case when review_id is not null then 1 else null end) as written_review,
+			count(case when review_id is null then 1 else null end) as pending_review
+		from order_view
+		where user_idx = #{user_idx}
+	</select>
+	
+	<!-- review-list-empty -->
+	<select id="selectReviewIdsByUser" parameterType="int" resultType="vo.ReviewVO">
+    	SELECT * FROM review WHERE user_idx = #{user_idx}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

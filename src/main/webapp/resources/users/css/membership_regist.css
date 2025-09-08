@@ -1,0 +1,138 @@
+
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 40px 0;
+    display: flex;
+    justify-content: center;
+    color: #333;
+}
+
+.container {
+    width: 550px;
+    height: 750px;
+    padding: 30px;
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo{display:flex; justify-content: center; align-items: center;}
+.logo span{color:#1e90ff;}
+.logo h3{margin:12px auto 12px auto;
+		 font-size:24px;}
+
+#usernameGroup{margin-top:10px;}
+
+.input-group {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    /*background-color: #3a3a3a;
+    color: #ffffff;*/
+    box-sizing: border-box;
+}
+
+.input_email > input
+{
+	width: 75%;
+}
+.input_verification_code > input
+{
+	width: 35%;
+}
+
+.input-group input:focus {
+	outline:none;
+	border-color:#1e90ff;
+}
+
+.input-group.error input {
+    border-color: red;
+}
+
+.error-message {
+    color: red;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+#btn_submit{
+    width: 100%;
+    padding: 12px;
+    background-color:#1e90ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top:5px;
+}
+
+#btn_send{
+    width: 22%;
+    padding: 8px; margin-left:10px;
+    background-color:#1e90ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    margin-top:5px;
+}
+
+#btn_ver_code{
+    width: 22%;
+    padding: 8px; margin-left:10px;
+    background-color:#1e90ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    margin-top:5px;
+}
+#btn_submit,#btn_send :hover {
+    background-color:#1e90ff;
+    text-decoration: underline;
+}
+@keyframes rotate360 {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.rotate1 {
+    animation: rotate360 2s linear infinite; /* ë¬´í•œ ë°˜ë³µ */
+}
+
+/* Å©·Ò, »çÆÄ¸®, ¿§Áö */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* ÆÄÀÌ¾îÆø½º */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+

@@ -1,0 +1,340 @@
+@charset "UTF-8";
+
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+hr {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: 'Pretendard', sans-serif;
+	background: /* #f7f9fa;*/ #f5f5f5;
+	color: #222;
+}
+
+.container {
+	display: flex;
+	max-width: 1500px;
+	gap: 20px;
+	margin: 18px auto;
+	flex-direction: row;
+	overflow-x: auto; /* 필요 시 */
+}
+
+/* 메인 */
+.product_registration_main {
+	flex: 1;
+	background: #fafafa;
+	min-height: 300px;
+	width: 700px;
+	border-radius: 12px;
+	padding: 24px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+	display: flex;
+	flex-direction: column;
+	/* 🔽 고정 탭 공간 만큼 왼쪽에 여유 줌 */
+	margin-left: 130px;
+	margin-right: 340px;
+	margin-bottom: 50px;
+}
+
+/* 상품 등록 */
+.product_text {
+	color: #333;
+}
+
+.product_registration {
+	background: #fff;
+	border-radius: 12px;
+	padding: 24px;
+	margin-bottom: 18px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.table_wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	margin-top: 16px;
+	width: 100%;
+}
+
+.basicInformation, .salesInformation, .imageInformation {
+	width: 100%;
+	table-layout: auto;
+	border-collapse: collapse;
+	margin-bottom: 12px;
+}
+
+.basicInformation th:first-child, .basicInformation td:first-child,
+	.salesInformation th:first-child, .salesInformation td:first-child,
+	.imageInformation th:first-child, .imageInformation td:first-child {
+	width: 120px;
+}
+
+.basicInformation th, .salesInformation th, .imageInformation th {
+	background-color: #f4f6fa;
+	padding: 4px 12px;
+	text-align: left;
+	font-weight: 500;
+	font-size: 14px;
+	color: #555;
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+}
+
+.basicInformation td, .salesInformation td {
+	padding: 6px 8px 6px 12px;
+	border-bottom: 1px solid #eee;
+	border-top: 1px solid #eee;
+	background: #fff;
+	color: #555;
+	font-size: 14px;
+}
+
+.imageInformation td {
+	padding: 12px;
+	border-bottom: 1px solid #eee;
+	border-top: 1px solid #eee;
+	background: #fff;
+	color: #555;
+	font-size: 14px;
+}
+
+.salesInformation input[type="text"], .basicInformation select,
+	.basicInformation input[type="text"], .salesInformation select,
+	.salesInformation input[type="number"] {
+	padding: 8px 12px;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	font-size: 13px;
+	margin-right: 8px;
+}
+
+.salesInformation input[type="text"]:focus, .salesInformation input[type="date"]:focus,
+	.basicInformation select, .basicInformation input[type="text"]:focus,
+	.basicInformation input[type="date"]:focus, .salesInformation select,
+	.salesInformation input[type="number"]:focus, .salesInformation input[type="date"]:focus
+	{
+	outline: none;
+}
+
+.salesInformation input[type="text"], .basicInformation input[type="text"]
+	{
+	width: 500px;
+}
+
+.salesInformation input[type="number"] {
+	width: 100px;
+}
+
+.salesInformation label {
+	margin-right: 16px;
+	font-size: 14px;
+}
+
+.salesInformation label input[type="radio"] {
+	margin-right: 6px;
+}
+
+.radio-group label {
+	margin-right: 12px;
+	font-size: 14px;
+}
+
+.productType_wrap {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 12px;
+}
+
+.category_filters p {
+	font-size: 14px;
+	margin-bottom: 4px;
+}
+
+.basicInformation .table_title, .salesInformation .table_title,
+	.imageInformation .table_title {
+	width: auto !important;
+	background: #fff;
+	font-size: 15px;
+	color: #222;
+	padding: 8px 12px;
+}
+
+.basicInformation span, .salesInformation span, .imageInformation span {
+	color: #555;
+	font-size: 14px;
+	margin-right: 10px;
+}
+
+.search-buttons {
+	display: flex;
+	justify-content: center;
+	padding: 0 8px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.search-buttons button {
+	padding: 8px 30px;
+	border-radius: 6px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.search-buttons .btn-submit {
+	background-color: #4f5bd5;
+	color: #fff;
+	border: none;
+}
+
+.search-buttons .btn-reset {
+	background-color: #fff;
+	color: #333;
+	border: 1px solid #ddd;
+	margin-right: 30px;
+}
+
+.search-buttons .btn-submit:hover {
+	background-color: #3a47b5;
+}
+
+.search-buttons .btn-reset:hover {
+	background-color: #f5f5f5;
+}
+
+.image-wrapper {
+	display: flex;
+}
+
+.image-information {
+	color: #999;
+	font-size: 12px;
+	margin-left: 14px;
+}
+
+.image-upload-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.image-preview-wrapper {
+	width: 100%;
+}
+
+.image-preview {
+	width: 130px;
+	height: 130px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #fafafa;
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 8px;
+}
+
+.image-preview img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 6px;
+}
+
+.no-image-text {
+	color: #999;
+	font-size: 33px;
+	text-align: center;
+}
+
+.image-upload-controls {
+	display: flex;
+	width: 130px;
+	gap: 8px;
+}
+
+.btn-file-select {
+	flex: 2; /* 파일 선택 버튼이 더 큼 */
+}
+
+.btn-file-delete {
+	flex: 1; /* 삭제 버튼이 더 작음 */
+}
+
+.btn-file-select, .btn-file-delete {
+	padding: 6px 0;
+	text-align: center;
+	border-radius: 6px;
+	font-size: 13px;
+	cursor: pointer;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	color: #444;
+	margin-bottom: 10px;
+}
+
+.btn-file-select:hover, .btn-file-delete:hover {
+	background-color: #f5f5f5;
+}
+
+.descriptionBox {
+	width: 520px;
+	height: 130px;
+	padding: 8px 12px;
+	margin: 4px;
+	border: 1px solid #ddd;
+	font-size: 15px;
+	box-sizing: border-box;
+	resize: none;
+	border-radius: 6px;
+}
+
+/* 대분류 + 소분류 셀렉트 박스 공통 너비 지정 */
+.category_filter select {
+  min-width: 160px;
+  width: 150px;
+  max-width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 13px;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+/* 소분류만 별도 지정하고 싶을 경우 */
+/* .child-category-select {
+  width: 220px;
+} */
+
+/* 겹침 방지 */
+.category_filter {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap; /* 줄바꿈 대응 */
+}

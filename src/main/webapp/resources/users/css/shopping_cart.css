@@ -1,0 +1,441 @@
+@charset "UTF-8";
+/* 기존 CSS 유지 */
+.blind {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+#container {
+	width: 1300px;
+	margin: 0 auto;
+	padding-top: 50px;
+}
+
+/******* cart_head 영역 *******/
+#cart_head {
+	width: 1300px;
+	margin: 0 auto;
+}
+
+.cart_header {
+	margin-bottom: 40px;
+}
+
+.cart_title {
+	letter-spacing: 1px;
+}
+
+/******* cart_body 영역 *******/
+#cart_body {
+	display: flex;
+}
+
+/*** body_left 영역 ***/
+#body_left {
+	width: 900px;
+}
+
+/* cart_option */
+.ul_option {
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #aaa;
+	padding: 15px 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.input_checkbox {
+	appearance: none;
+	-webkit-appearance: none;
+	width: 17px;
+	height: 17px;
+	border: 1px solid #999;
+	border-radius: 5px;
+	background: #fff;
+	cursor: pointer;
+	position: relative;
+}
+
+.input_checkbox:checked {
+	background: #1e90ff;
+	border-color: #1e90ff;
+}
+
+.input_checkbox:checked::after {
+	content: '';
+	width: 8px;
+	height: 6px;
+	left: 50%;
+	top: 50%;
+	border-left: 2px solid #fff;
+	border-bottom: 2px solid #fff;
+	position: absolute;
+	transform: translate(-45%, -75%) rotate(-45deg);
+}
+
+.option_select {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.option_select label {
+	cursor: pointer;
+}
+
+.select_delete {
+	background: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.fade-text {
+	transition: all 0.2s ease;
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.fade-text.fade-out {
+	opacity: 0;
+	transform: translateY(-5px);
+}
+/* basket_list */
+.basket_event {
+	width: 900px;
+	margin-top: 15px;
+	margin-bottom: 0px;
+	padding: 40px 0;
+	background: rgb(230, 243, 255);
+	border-radius: 10px;
+	text-align: center;
+	position: relative;
+}
+/*.basket_event:active{background:#f8f8f8;}*/
+.event_banner {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	font-weight: bold;
+	color: #222;
+}
+
+.event_banner .event_text1 {
+	display: inline-block;
+	margin-right: 8px;
+	font-size: 17px;
+}
+
+.event_banner .event_text2 {
+	display: inline-block;
+	margin-right: 12px;
+	font-size: 16px;
+	color: #1e90ff;
+}
+
+.event_banner img {
+	width: 70px;
+	height: auto;
+}
+
+#content .item {
+	border-bottom: 1px solid #aaa;
+	padding: 40px 0;
+	display: flex;
+	position: relative;
+}
+
+#content .item_img img {
+	width: 130px;
+	height: auto;
+	margin: 0 5px;
+}
+
+#content .item_info {
+	width: 880px;
+	margin-left: 20px;
+	position: relative;
+}
+
+.unit_delete {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	z-index: 10;
+}
+
+.trash {
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+}
+
+.unit_item {
+	position: relative;
+	width: 100%;
+}
+
+.unit_item_title span {
+	display: block;
+}
+
+.item_name {
+	font-weight: bold;
+	margin: 10px 0;
+	color: #000;
+}
+
+.item_detail_list {
+	color: #777;
+}
+
+.unit_item_btn {
+	margin-top: 15px;
+	display: flex;
+	align-items: center;
+}
+
+.quantity_count {
+	width: 34px;
+	height: 25px;
+	text-align: center;
+	border-top: 1.5px solid #999;
+	border-bottom: 1.5px solid #999;
+	border-left: none;
+	border-right: none;
+}
+
+.btn_minus, .btn_plus {
+	width: 27px;
+	height: 27px;
+	font-size: 20px;
+	color: #333;
+	background: #fff;
+	border: 1.5px solid #999;
+	cursor: pointer;
+}
+
+.btn_minus {
+	border-radius: 6px 0 0 6px;
+}
+
+.btn_plus {
+	border-radius: 0 6px 6px 0;
+}
+
+.unit_price {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+/* cart_notice 영역 */
+.cart_notice {
+	margin: 80px 0;
+}
+
+.notice_title {
+	font-size: 18px;
+	color: #222;
+}
+
+.ul_notice {
+	margin-top: 20px;
+}
+
+.ul_notice .li_notice {
+	font-size: 14px;
+	color: #777;
+	margin: 5px 0;
+}
+
+.product-image {
+	position: relative; /* 부모를 상대 위치로 잡아서 overlay 위치 기준 설정 */
+	width: 130px; /* 이미지 크기에 맞춰 조절하세요 */
+	height: auto; /* 필요시 고정 크기 조절 */
+	display: inline-block; /* 필요에 따라 */
+}
+
+.product-image img {
+	display: block; /* 이미지 주위 여백 제거 */
+	width: 100%;
+	height: auto;
+}
+
+.blurred-image {
+	filter: brightness(0.9) grayscale(0.2);
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+.sold-out-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(128, 128, 128, 0.3); /* 연한 회색 배경 */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	pointer-events: none;
+	z-index: 2;
+}
+
+.sold-out-text {
+	color: #fff;
+	font-weight: 600;
+	font-size: 16px;
+	background: rgba(50, 50, 50, 0.6);
+	padding: 6px 16px;
+	border-radius: 20px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+	letter-spacing: 1px;
+}
+/*** body_right 영역 ***/
+#body_right {
+	width: 350px;
+	margin-left: auto;
+}
+
+.cart_order_box {
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	padding: 30px;
+	position: sticky;
+	top: 20px;
+}
+
+.order_head {
+	margin-bottom: 30px;
+}
+
+strong.text_title {
+	font-size: 20px;
+	color: #222;
+	letter-spacing: 1px;
+}
+
+.payment_list {
+	margin-bottom: 30px;
+}
+
+.pay_list_text {
+	color: #777;
+}
+
+.pay_list_amount {
+	float: right;
+}
+
+.drop_head {
+	color: #222;
+	margin-bottom: 10px;
+}
+
+.btn_card {
+	background: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.drop_body_title {
+	font-size: 15px;
+	color: #222;
+	display: block;
+	padding-top: 5px;
+	padding-bottom: 10px;
+}
+
+.card_check label {
+	font-size: 14px;
+}
+
+.drop_body {
+	background: rgb(248, 248, 248);
+	border-radius: 10px;
+	padding: 20px;
+}
+
+.drop_list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.card_check {
+	margin-bottom: 10px;
+}
+
+.card_check label {
+	color: #777;
+}
+
+.card_value {
+	color: #1e90ff;
+}
+
+.card_value {
+	font-size: 15px;
+}
+
+.card_won {
+	font-size: 15px;
+}
+
+.card_footer {
+	margin: 20px 0;
+	display: flex;
+	justify-content: space-between;
+}
+
+.total_text {
+	font-size: 15px;
+	margin-top: 10px;
+}
+
+.total_payment {
+	font-size: 24px;
+}
+
+#btnOrder {
+	border: transparent;
+	border-radius: 30px;
+	background: #1e90ff;
+	color: #fff;
+	width: 280px;
+	height: 45px;
+	cursor: pointer;
+	display: block;
+	margin: 20px auto 0 auto;
+	font-size: 16px;
+	transition: all 0.3s ease;
+}
+
+#btnOrder:hover {
+	background: #0077e6;
+}
+
+#btnOrder strong {
+	font-size: 16px;
+	letter-spacing: 1px;
+}
+
+.no-cart {
+	text-align: center;
+	padding: 60px 0;
+	font-size: 18px;
+	color: #999;
+}

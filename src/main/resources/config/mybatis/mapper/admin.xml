@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin">
+
+	<select id="existsByAdminId" parameterType="String" resultType="int">
+		select count(*) from admin where admin_id = #{admin_id}
+	</select>
+	
+	<select id="checkPassword" parameterType="java.util.Map" resultType="vo.AdminVO">
+		select * from admin where admin_id = #{admin_id} and admin_pwd = #{admin_pwd}
+	</select>
+	
+</mapper>  
+
+
+
+
+
+
+
+
+
+
+
+

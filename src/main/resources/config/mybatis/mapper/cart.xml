@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="c">
+
+	<!-- 장바구니 리스트를 가져옴 -->
+	<select id="cart_list" resultType="cart" parameterType="int">
+		select *
+		from cart_view where user_idx = #{user_idx}
+	</select>
+
+	<!-- 회원 장바구니 1개만 정보가져옴 -->
+	<select id="cart_selectone" resultType="cart">
+		select * from cart_view
+		where cart_id = #{cart_id}
+	</select>
+	
+	<!-- 장바구니에 상품을 추가할때 같은 상품이 장바구니에 있는지 확인-->
+	<select id="cart_selectVO" resultType="cart"
+		parameterType="cart">
+		select * from cart where user_idx = #{user_idx} and
+		product_id = #{product_id}
+	</select>
+
+	<select id="total_amount" parameterType="int" resultType="int">
+		select
+		NVL(sum(amount),0)
+		from cart_view
+		where user_idx = #{user_idx}
+	</select>
+
+	<select id="total_cnt" parameterType="int" resultType="int">
+		select
+		sum(quantity) from cart_view where user_idx = #{user_idx}
+	</select>
+
+	<update id="cnt_update" parameterType="cart">
+		UPDATE cart SET quantity = #{quantity}
+		WHERE user_idx = #{user_idx} AND cart_id = #{cart_id}
+	</update>
+
+	<delete id="cart_delOne" parameterType="int">
+		delete from cart where
+		cart_id = #{cart_id}
+	</delete>
+
+	<insert id="cart_add" parameterType="cart">
+		insert into cart (cart_id,
+		user_idx, product_id, quantity)
+		values (seq_cart_idx.nextVal,
+		#{user_idx}, #{product_id}, 1)
+	</insert>
+	<delete id="cart_user_list_delete" parameterType="java.util.Map"> delete from
+		cart where user_idx = #{user_idx} and product_id = #{product_id}
+	</delete>
+	
+	<select id="cart_count" resultType="int" parameterType="int">
+		select count(*) from cart 
+		where user_idx = #{user_idx}
+	</select>
+	
+	<insert id="mypage_cart_insert" parameterType="java.util.Map">
+		insert into cart values(seq_cart_idx.nextval, #{user_idx}, #{product_id}, 1)
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,270 @@
+@charset "UTF-8";
+
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+hr {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: 'Pretendard', sans-serif;
+	background: /* #f7f9fa;*/ #f5f5f5;
+	color: #222;
+}
+
+.container {
+	display: flex;
+	/* width: 100%; */
+	max-width: 1500px;
+	margin: 18px auto;
+	gap: 20px; /* 내비와 폼 사이 간격 */
+	overflow-x: auto; /* 필요 시 */
+}
+
+/* 메인 */
+.return_edit_main {
+	background: #fafafa;
+	min-height: 300px;
+	border-radius: 12px;
+	width: 750px;
+	padding: 24px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	/* margin-left: 153px; */
+	/* margin-right: 80px; */
+	margin-bottom: 50px;
+}
+
+/* 상품 등록 */
+.return_text {
+	color: #333;
+	margin-bottom: 8px;
+}
+
+.return_edit {
+	background: #fff;
+	border-radius: 12px;
+	padding: 24px;
+	margin-bottom: 18px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.return-button-wrapper {
+	display: flex;
+	gap: 20px;
+	align-items: flex-start;
+}
+
+.tab-nav-vertical {
+	display: flex;
+	flex-direction: column; /* 세로 정렬 */
+	gap: 10px;
+	border-left: 1px solid #ddd;
+	padding-left: 15px;
+	min-width: 100px;
+	position: sticky; /* 화면에 고정 */
+	/* top: 100px; */ /* 상단에서 떨어진 거리 */
+	z-index: 1000;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.tab-btn {
+	width: 160px; /* 버튼 너비 고정 */
+	white-space: normal; /* 줄바꿈 허용 */
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 3; /* 최대 2줄 */
+	-webkit-box-orient: vertical;
+	text-overflow: ellipsis;
+	word-break: break-word; /* 단어 중간에서도 줄바꿈 가능 */
+	padding: 5px 10px;
+	font-size: 14px;
+	line-height: 1.2em;
+	border: 1px solid #ccc;
+	background: #fff;
+	cursor: pointer;
+	border-radius: 4px;
+	transition: 0.2s ease;
+	
+}
+
+.tab-btn.active {
+	background-color: #4f5bd5;
+	color: #fff;
+	border-color: #4f5bd5;
+}
+
+.table_wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	margin-top: 16px;
+	width: 100%;
+}
+
+.displaySettings, .orderInformation, .productInformation,
+	.paymentInformation, .imageInformation {
+	width: 100%;
+	table-layout: auto;
+	border-collapse: collapse;
+	margin-bottom: 12px;
+}
+
+
+.displaySettings th:first-child, .displaySettings td:first-child,
+	.orderInformation th:first-child, .orderInformation td:first-child,
+	.productInformation th:first-child, .productInformation td:first-child,
+	.paymentInformation th:first-child, .paymentInformation td:first-child,
+	.imageInformation th:first-child, .imageInformation td:first-child {
+	width: 180px;
+}
+
+
+.displaySettings th, .orderInformation th, .productInformation th,
+	.paymentInformation th, .imageInformation th {
+	background-color: #f4f6fa;
+	padding: 4px 12px;
+	text-align: left;
+	font-weight: 500;
+	font-size: 14px;
+	color: #555;
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+}
+
+.displaySettings td, .orderInformation td, .productInformation td,
+	.paymentInformation td {
+	padding: 6px 8px 6px 12px;
+	border-bottom: 1px solid #eee;
+	border-top: 1px solid #eee;
+	background: #fff;
+	color: #555;
+	font-size: 14px;
+}
+
+
+.displaySettings select, .displaySettings input[type="text"] {
+	padding: 8px 12px;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	font-size: 13px;
+	margin-right: 8px;
+	width: 150px;
+}
+
+.displaySettings select, .displaySettings input[type="text"]:focus,
+	.displaySettings input[type="date"]:focus {
+	outline: none;
+}
+
+.displaySettings label {
+	margin-right: 16px;
+	font-size: 14px;
+}
+
+.displaySettings label input[type="radio"] {
+	margin-right: 6px;
+}
+
+.reason{
+	width: 440px;
+	resize: none;
+	height: 100px;
+	border-radius: 6px;
+	border: 1px solid #ddd;
+	padding: 10px;
+}
+
+.returnType_wrap {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 12px;
+}
+
+.displaySettings .table_title, .orderInformation .table_title,
+	.productInformation .table_title, .paymentInformation .table_title,
+	.imageInformation .table_title {
+	width: auto !important;
+	background: #fff;
+	font-size: 15px;
+	color: #222;
+	padding: 8px 12px;
+}
+
+.search-buttons {
+	display: flex;
+	justify-content: flex-end;
+	margin: 5px 0 ;
+}
+
+.search-buttons button {
+	padding: 5px 20px;
+	border-radius: 6px;
+	font-size: 14px;
+	cursor: pointer;
+	
+} 
+
+
+
+.search-buttons .btn-submit {
+	background-color: #5c6ac4; /* 블루그레이 느낌 */
+	color: #fff;
+	border: none;
+	margin-right: 10px;
+}
+
+.search-buttons .btn-submit:hover {
+	background-color: #4e5aa8;
+}
+
+.search-buttons .btn-reset {
+	background-color: #f8fafc;
+	color: #4b5563; /* 차콜 */
+	border: 1px solid #cbd5e1;
+}
+
+.search-buttons .btn-reset:hover {
+	background-color: #e2e8f0;
+}
+
+
+
+
+.btn-back {
+	padding: 8px 30px;
+	border-radius: 6px;
+	font-size: 14px;
+	cursor: pointer;
+	background-color: #fff;
+	color: #333;
+	border: 1px solid #ddd;
+	margin-bottom: 20px;
+}
+
+.btn-back:hover {
+	background-color: #f5f5f5;
+}

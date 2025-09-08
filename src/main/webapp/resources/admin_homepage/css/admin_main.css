@@ -1,0 +1,159 @@
+@charset "UTF-8";
+
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+  overflow-y: scroll;
+}
+li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+hr {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: 'Pretendard', sans-serif;
+	background: /* #f7f9fa;*/ #f5f5f5;
+	color: #222;
+}
+
+.container {
+	display: flex;
+	width: 100%;
+	max-width: 1500px;
+	margin: 18px auto;
+	gap: 20px; /* 내비와 폼 사이 간격 */
+}
+
+/* 메인 */
+.admin_main {
+	flex: 1;
+	padding-bottom: 20px;
+}
+
+.admin_status_wrapper {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 20px;
+	width: 100%;
+	margin-bottom: 24px;
+}
+
+.status_box {
+	background: #ffffff;
+	padding: 14px;
+	border-radius: 8px;
+	transition: all 0.2s ease;
+	cursor: pointer;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.status_box:hover {
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.status_header {
+	margin-bottom: 14px;
+}
+
+.status_title {
+	font-size: 15px;
+	font-weight: 600;
+	color: #555;
+	text-transform: uppercase;
+	letter-spacing: 0.025em;
+}
+
+.status_body {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 14px;
+}
+
+.status_item {
+	background: #f8fafc;
+	padding: 8px;
+	border-radius: 6px;
+	text-align: center;
+	font-size: 13px;
+	color: #64748b;
+	font-weight: 500;
+	transition: all 0.2s ease;
+	cursor: pointer;
+}
+
+.status_item:hover {
+	background: #f1f5f9;
+}
+
+.status_item strong {
+	display: block;
+	font-size: 22px;
+	color: #1e293b;
+	margin-top: 4px;
+	font-weight: 600;
+	line-height: 1.2;
+}
+
+.status_box:nth-child(1) .status_item strong {
+	color: #60a5fa; /* 기존 #3b82f6 → 밝은 파랑 */
+}
+
+.status_box:nth-child(2) .status_item strong {
+	color: #fbbf24; /* 기존 #f59e0b → 밝은 노랑 */
+}
+
+.status_box:nth-child(3) .status_item strong {
+	color: #34d399; /* 기존 #10b981 → 밝은 민트 */
+}
+
+.status_box:nth-child(4) .status_item strong {
+	color: #c084fc; /* 기존 #8b5cf6 → 연한 보라 */
+}
+
+.red_num {
+	color: #f87171 !important; /* 기존 #ef4444 → 연한 빨강 */
+}
+
+/* 반응형 */
+@media ( max-width : 1200px) {
+	.admin_status_wrapper {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media ( max-width : 768px) {
+	.admin_status_wrapper {
+		grid-template-columns: 1fr;
+		gap: 12px;
+	}
+	.status_body {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 8px;
+	}
+	.status_box {
+		padding: 14px;
+	}
+	.status_item {
+		padding: 12px 8px;
+	}
+	.status_item strong {
+		font-size: 20px;
+	}
+}

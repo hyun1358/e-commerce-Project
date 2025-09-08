@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Oracle Cloud Wallet Connection -->
+    <bean id="ds" class="oracle.jdbc.pool.OracleDataSource">
+        <property name="URL" value="jdbc:oracle:thin:@rg4sdwtbfv6e62b3_high"/>
+        <property name="user" value="3JO"/>
+        <property name="password" value="Abcdefg123!!"/>
+        <property name="connectionProperties">
+            <props>
+                <prop key="oracle.net.wallet_location">/opt/oracle/Wallet_RG4SDWTBFV6E62B3</prop>
+                <prop key="oracle.net.tns_admin">/opt/oracle/Wallet_RG4SDWTBFV6E62B3</prop>
+            </props>
+        </property>
+    </bean>
+	
+</beans>

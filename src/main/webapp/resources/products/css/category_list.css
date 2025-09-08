@@ -1,0 +1,488 @@
+@charset "UTF-8";
+
+.laptop-container
+{
+	width: 1300px;
+	height: auto;
+	margin: 40px auto 0 auto;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.price-filter{
+	width: 1200px;
+	height: 20px;
+	margin: 0 auto;
+	padding-top: 35px;
+	padding-bottom: 10px;
+}
+.price-filter > a
+{
+	float: left;
+	color: #333;
+	text-decoration: none;
+	margin-right: 15px;
+	
+}
+.price-filter > a::before
+{
+	width: 2px;
+	height: 2px;
+	content: '•';
+	display: inline-block;
+	margin-right: 6px;
+}
+
+/* .price-filter > a::after {
+	content: '|'
+	color: #ccc;
+	margin-left: 8px;
+	font-weight: normal;
+}
+
+.price-filter > a:last-of-type::after {
+  content: '';
+} */
+
+.price-filter > a 
+{
+   font-size: 14px;
+   display: inline-block;
+   padding: 4px 8px;
+   margin-right: 3px;
+   text-decoration: none;
+   color: #333;
+   /* border: 1px solid #eee; */
+   border-radius: 3px;
+   white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 */
+   }
+   /* 마우스 오버 시 스타일 */
+   .price-filter > a:hover {
+   text-decoration: underline;
+   }
+   /* 활성화된 링크의 스타일 */
+   .price-filter > a.active {
+   text-decoration: underline;
+   color: #333;
+   font-weight: 600;
+   /* background-color: #f0f0f0; */
+}
+
+.search-info {
+  width: 1200px;         /* 기존 price-filter와 동일 너비 */
+  margin: 0 auto;        /* 가운데 정렬 */
+  padding-top: 10px;     /* 위쪽 여백 조정 */
+  text-align: right;     /* 오른쪽 정렬 */
+  font-size: 14px;       /* 필요 시 폰트 크기 조정 */
+  color: #333;           /* 필요 시 색상 조정 */
+}
+
+.image-gallery {
+    max-width: 1300px;
+    margin: 30px auto 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.product-card {
+    width: 290px;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.image-gallery .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+.product-image {
+    position: relative;
+    width: 100%;
+    height: auto;
+    background-color: #f9f9f9;
+    display: block;
+}
+
+.product-image img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+}
+
+.product-image > .product-actions {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+    	z-index: 2; /* 🔼 더 높게 설정해서 배너 위에 올라오도록 */
+}
+
+.product-image > .product-actions > button {
+    width: 22px;      /* 기존 25px → 20px로 줄임 */
+    height: 22px;
+    cursor: pointer;
+    position: relative;
+    background: none;
+    border: none;
+}
+
+.product-image > .product-actions > button > svg{
+	width: 100%;      /* 기존 25px → 20px로 줄임 */
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    fill: #888;
+    cursor: pointer;
+    transition: fill 0.4s ease;
+}
+
+.product-image > div > button > svg:hover {
+    fill: #ff6b6b;
+}
+
+.product-image > div > button > svg.active
+{
+	fill:#ff6b6b;
+}
+
+/* 이미지 하단에 띄우는 품절 배너 */
+/* .sold-out-banner {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.1);  아주 연한 검정 → 흐릿한 회색 🔄 흐릿한 빨강
+	color: #d10000; 조금 어두운 붉은색 텍스트
+	text-align: center;
+	font-weight: bold;
+	font-size: 16px;
+	padding: 7px 0;
+	z-index: 1; 찜 버튼보다 아래로
+	backdrop-filter: blur(1px); 선택사항: 살짝 흐림 효과
+} */
+
+
+/* .sold-out-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.1); 
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 2;
+	pointer-events: none; /* 찜 버튼 클릭 가능하도록! 
+}
+
+.sold-out-text {
+	color: #333;
+	font-weight: bold;
+	font-size: 18px;
+	background: rgba(255, 255, 255, 0.8);
+	padding: 4px 12px;
+	border-radius: 6px;
+} */
+
+.sold-out-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.12); /* 더 부드럽고 고급스러운 회색 */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 2;
+	pointer-events: none;
+	backdrop-filter: blur(1px); /* 🔍 흐림 효과 추가 (선택사항) */
+}
+
+.sold-out-text {
+	color: #fff; /* 흰색 글자 */
+	font-weight: 600;
+	font-size: 18px;
+	background: rgba(50, 50, 50, 0.6); /* 짙은 회색 반투명 배경 */
+	padding: 6px 16px;
+	border-radius: 20px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+	letter-spacing: 1px;
+}
+
+.product-title {
+    padding: 15px 20px 5px 20px;
+    font-size: 16px;
+    line-height: 1.4;
+    height: 65px;
+}
+
+.product-title .product-name {
+    text-decoration: none;
+    color: #222;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.product-title .product-name:hover {
+    color: #0078ff;
+}
+
+.product-price {
+    padding: 0 20px 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #222;
+}
+
+.product-price > span > div
+{
+	position: absolute;
+	 font-weight: normal;
+	right: 30px;
+	bottom: 60px;
+}
+
+.product-price > span > div > img
+{
+	width: 16px; height: 16px;
+}
+
+.product-card > button.delivery {
+    margin: 0 20px 15px 20px;
+    padding: 8px 14px;
+    font-size: 14px;
+    background-color: #e8f0fe;
+    border: none;
+    border-radius: 6px;
+    color: #1a73e8;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.product-card > button.delivery:hover {
+    background-color: #d2e3fc;
+}
+
+.product-card > button.compare {
+  position: absolute;
+  right: 8px; /* 오른쪽 여백 추가 */
+  bottom: 8px; /* 아래쪽 여백 추가 */
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px 8px 8px;
+  font-size: 14px;
+  color: #555; /* 기본 텍스트 색상 */
+  background: rgba(255, 255, 255, 0.9);
+  border: 1.5px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: 
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.product-card > button.compare::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: inherit;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.product-card > button.compare:hover {
+  color: #1a73e8;
+  background-color: #e8f0fe;
+  border-color: #1a73e8;
+  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.4);
+}
+
+.product-card > button.compare:hover::before {
+  transform: scale(1.2);
+  color: #1a73e8;
+}
+.product-card > button.compare.clicked
+{
+	background: black;
+}
+
+/* 비교창 */
+.compare-panel-toggle
+{
+	width: 60px;
+	height: 29px;
+	display: flex;
+	position: absolute; top: -29px; left: 50%;transform: translateX(-50%); justify-content: center;
+}
+.compare-panel-toggle > .compare-panel-toggle-switch
+{
+	width: 60px;
+	height: 29px;
+	background: #fff;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	border: none;
+	cursor: pointer;
+}
+
+.compare-panel
+{
+  width: 100%;
+  height: auto;
+  background: #fff;
+  margin: 0 auto;
+  position: fixed;
+  bottom: 0;
+  z-index: 3;
+  display: none;
+  transition: transform 0.4s ease;
+  border-top: 1px solid #666;
+}
+
+.compare-panel.open 
+{
+  transform: translateY(157px);
+}
+
+.compare-panel-title
+{
+	width: 1300px; margin:0 auto; display: flex; align-items: center; position: relative; padding: 14px 0 24px;
+}
+
+.compare-panel-title > h4
+{
+	margin-right: 30px;
+}
+
+.compare-panel-title > .button-group
+{
+	margin-left: auto;
+	display: flex;
+	gap: 15px;
+}
+
+.compare-panel-title > .button-group > .reset-btn, .result-btn
+{
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.compare-panel-title > .button-group > .reset-btn
+{
+	border: none;
+	background: none;
+}
+.compare-panel-title > .button-group > .reset-btn:hover
+{
+	text-decoration: underline;
+	
+}
+
+.compare-panel-title > .button-group > .reset-btn::before
+{
+	content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/><path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/></svg>');
+}
+
+.compare-panel-title > .button-group > .result-btn
+{
+	width: 152px;
+	padding: 2px 24px;
+	border-radius: 20px;
+	border: none;
+	background: #1e90ff;
+	color: #fff;
+}
+
+.compare-panel-info
+{
+	width: 1300px;
+    margin:10px auto 42px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.compare-panel-box
+{
+	width: 302px; height: 102px; 
+	border:2px solid #666; border-radius: 10px;
+	display: flex;
+	position: relative;
+}
+
+.compare-panel-img
+{
+	width: 100px;
+	height: 100%;
+}
+.compare-panel-product-name
+{
+	width: 175px;
+}
+
+.compare-panel-product-remove_bnt
+{
+	width: 18px; height: 18px;
+	position: absolute;
+	top: 5px; right: 5px;
+	background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>');
+	background-color: #fff;
+	border: none;
+	cursor: pointer;
+}
+
+.ports-content {
+    white-space: pre-wrap; /* DB에서 가져온 줄바꿈 유지 */
+    font-family: inherit; /* 부모 요소와 동일한 폰트 적용 */
+    line-height: 1.5; /* 다른 항목과 통일된 줄 간격 */
+}
+
+.no-results {
+    padding: 70px 20px;
+    margin: 20px auto 140px;
+/*     background-color: #fff0f0; */
+/* border:1px solid #888; */
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+    width: 80%;
+    border-radius: 8px;
+}
+
+.no-results h2 {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.no-results span {
+    font-size: 16px;
+    color: #666;
+}

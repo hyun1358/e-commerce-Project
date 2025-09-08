@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 이메일 인증 관련 등록 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.naver.com"/>
+	    <property name="port" value="465"/>
+	    <property name="username" value="chs010604@naver.com"/>
+	    <property name="password" value="YF5V8VK24RQR"/>
+	    <!-- 보안연결 SSL과 관련된 설정 -->
+	    <property name="javaMailProperties">
+        <props>
+            <prop key="mail.smtp.auth">true</prop>
+            <prop key="mail.smtp.ssl.enable">true</prop> <!-- 이거 꼭 있어야 함 -->
+            <prop key="mail.smtp.ssl.trust">smtp.naver.com</prop>
+            <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop> <!-- 선택사항 -->
+            <prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+            <prop key="mail.debug">true</prop>
+        </props>
+    </property>
+	</bean>
+	
+</beans>

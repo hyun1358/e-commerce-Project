@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "HTTP://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+	</settings>
+
+	<typeAliases>
+		<typeAlias type="vo.UserVO" alias="user" />
+		<typeAlias type="vo.ProductVO" alias="pro" />
+		<typeAlias type="vo.CartVO" alias="cart" />
+		<typeAlias type="vo.OrdersVO" alias="order" />
+		<typeAlias type="vo.Order_detailVO" alias="detail" />
+		<typeAlias type="vo.ReviewVO" alias="review" />
+		<typeAlias type="vo.PaymentVO" alias="payment" />
+		<typeAlias type="vo.OrderListVO" alias="orderlist" />
+		<typeAlias alias="ProductUploadVO" type="vo.ProductUploadVO" />
+		<typeAlias type="vo.InquiryVo" alias="inquiry" />
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="config/mybatis/mapper/laptop.xml" />
+		<mapper resource="config/mybatis/mapper/users.xml" />
+		<mapper resource="config/mybatis/mapper/cart.xml" />
+		<mapper resource="config/mybatis/mapper/review.xml" />
+		<mapper resource="config/mybatis/mapper/payment.xml" />
+		<mapper resource="config/mybatis/mapper/orders.xml" />
+		<mapper resource="config/mybatis/mapper/order_detail.xml" />
+		<mapper resource="config/mybatis/mapper/category.xml" />
+		<mapper resource="config/mybatis/mapper/wishlist.xml" />
+		<mapper resource="config/mybatis/mapper/notice.xml" />
+		<mapper resource="config/mybatis/mapper/inquiry.xml" />
+		<mapper resource="config/mybatis/mapper/notice.xml" />
+		<mapper resource="config/mybatis/mapper/inquiry.xml" />
+		<mapper resource="config/mybatis/mapper/admin_customer.xml" />
+		<mapper resource="config/mybatis/mapper/admin_order.xml" />
+		<mapper resource="config/mybatis/mapper/admin_order_detail.xml" />
+		<mapper resource="config/mybatis/mapper/admin_product.xml" />
+		<mapper resource="config/mybatis/mapper/admin_payment.xml" />
+		<mapper resource="config/mybatis/mapper/admin.xml" />
+		<mapper resource="config/mybatis/mapper/admin_return.xml" />
+	</mappers>
+</configuration>

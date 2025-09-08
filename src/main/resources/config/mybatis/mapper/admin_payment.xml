@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminpayment">
+	<select id="getpaymentById" parameterType="String"
+		resultType="vo.AdminPaymentVO">
+		select
+		min(payment_id) as payment_id,
+		min(imp_uid) as
+		imp_uid,
+		merchant_uid,
+		min(pay_method) as pay_method,
+		min(currency) as
+		currency,
+		min(paid_at) as paid_at,
+		min(card_name) as card_name,
+		min(card_number) as card_number,
+		min(buyer_name) as buyer_name,
+		min(buyer_tel) as buyer_tel,
+		min(buyer_addr) as buyer_addr,
+		min(buyer_postcode) as buyer_postcode,
+		min(deliveryrequest) as
+		deliveryrequest,
+		sum(case when status = '결제완료' then quantity else 0 end) as total_count_paid,
+		sum(case when status = '결제완료' then paid_amount else 0 end) as
+		total_paid_amount,
+		sum(case when status = '결제취소' then quantity else 0 end) as
+		total_count_cancelled,
+		sum(case when status = '결제취소' then paid_amount else 0 end) as
+		total_cancelled_amount
+		from payment
+		where merchant_uid = #{merchant_uid}
+		group by merchant_uid
+	</select>
+
+</mapper>  
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+	xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+
+
+	<annotation-driven />
+	<!-- ✅ JSON 컨버터 포함한 @Controller 설정 -->
+	<!-- <annotation-driven> <message-converters register-defaults="true"> <beans:bean 
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" 
+		/> </message-converters> </annotation-driven> -->
+
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+	<!-- <context:component-scan base-package="com.kh.final"/> 자동스캔 -->
+	<!-- <context:component-scan base-package="controller" /> -->
+	<!-- <context:component-scan base-package="interceptor" /> -->
+
+	<!-- 메인 컨트롤러 -->
+	<beans:bean class="controller.StartController">
+		<beans:property name="products_dao" ref="products_dao" />
+		<beans:property name="category_dao" ref="category_dao"></beans:property>
+	</beans:bean>
+
+	<!-- 로그인 컨트롤러 -->
+	<beans:bean id="linkController"
+		class="controller.LinkController">
+		<beans:property name="payment_dao" ref="payment_dao" />
+	</beans:bean>
+
+	<!-- 로그인 컨트롤러 -->
+	<beans:bean class="controller.LoginController">
+		<beans:property name="naverLoginBO" ref="naverLoginBO" />
+		<beans:property name="googleLoginBean"
+			ref="googleLoginBO" />
+		<beans:property name="user_dao" ref="user_dao" />
+	</beans:bean>
+
+	<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
+	<beans:bean id="naverLoginBO" class="naver_api.NaverLoginBO" />
+	<beans:bean id="googleLoginBO"
+		class="google_api.GoogleLoginBean" />
+
+	<!-- 이메일 -->
+	<beans:bean class="controller.EmailVerificationController">
+		<beans:property name="mailSender" ref="mailSender" />
+		<beans:property name="user_dao" ref="user_dao" />
+	</beans:bean>
+
+	<!-- 결제 컨트롤러 -->
+	<beans:bean class="controller.PaymentController">
+		<beans:property name="payment_dao" ref="payment_dao" />
+		<beans:property name="order_dao" ref="order_dao" />
+		<beans:property name="orderDetail_dao"
+			ref="orderDetail_dao" />
+		<beans:property name="product_dao" ref="products_dao" />
+		<beans:property name="cart_dao" ref="cart_dao" />
+	</beans:bean>
+
+	<!-- 상품 컨트롤러 -->
+	<beans:bean id="productController"
+		class="controller.ProductController">
+		<beans:property name="products_dao" ref="products_dao" />
+		<beans:property name="review_dao" ref="review_dao" />
+		<beans:property name="category_dao" ref="category_dao"></beans:property>
+	</beans:bean>
+
+	<!-- 장바구니 -->
+	<beans:bean class="controller.CartController">
+		<beans:property name="cart_dao" ref="cart_dao" />
+		<beans:property name="product_dao" ref="products_dao" />
+	</beans:bean>
+
+	<!-- 주문 -->
+	<beans:bean class="controller.OrdersController">
+		<beans:property name="order_dao" ref="order_dao" />
+		<beans:property name="cart_dao" ref="cart_dao" />
+		<beans:property name="wish_dao" ref="wishList_dao" />
+		<beans:property name="review_dao" ref="review_dao" />
+		<beans:property name="payment_dao" ref="payment_dao" />
+		<beans:property name="pro_dao" ref="products_dao" />
+		<beans:property name="detail_dao" ref="orderDetail_dao" />
+		<beans:property name="inquiry_dao" ref="inquiry_dao" />
+	</beans:bean>
+
+	<!-- 마이페이지 -->
+	<beans:bean class="controller.MypageController">
+		<beans:property name="user_dao" ref="user_dao"></beans:property>
+	</beans:bean>
+
+	<!-- 고객지원, 문의 -->
+	<beans:bean class="controller.UserSupportController">
+		<beans:property name="notice_dao" ref="notice_dao"></beans:property>
+		<beans:property name="inquiry_dao" ref="inquiry_dao"></beans:property>
+	</beans:bean>
+
+	<!-- 리뷰 -->
+	<beans:bean class="controller.ReviewController">
+		<beans:property name="review_dao" ref="review_dao" />
+		<beans:property name="detail_dao" ref="orderDetail_dao" />
+	</beans:bean>
+
+	<!-- 찜 -->
+	<beans:bean class="controller.WishlistController">
+		<beans:property name="wishlist_dao" ref="wishList_dao" />
+	</beans:bean>
+
+	<!-- 반드시 DispatcherServlet이 로드하는 XML에 있어야 함 -->
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	<!-- 필요한 경우 최대 업로드 용량 설정도 가능 -->
+	<!-- <property name="maxUploadSize" value="5242880" /> 5MB -->
+
+	<!-- 베스트,전체,세일 -->
+	<beans:bean class="controller.BestProductController">
+		<beans:property name="product_dao" ref="products_dao"></beans:property>
+	</beans:bean>
+
+	<beans:bean class="controller.AllProductsController">
+		<beans:property name="product_dao" ref="products_dao"></beans:property>
+	</beans:bean>
+
+	<beans:bean class="controller.SalseProductsController">
+		<beans:property name="product_dao" ref="products_dao"></beans:property>
+	</beans:bean>
+
+	<!-- 어드민 -->
+	<beans:bean class="controller.AdminController">
+		<beans:property name="admin_dao" ref="admin_daoBean"></beans:property>
+	</beans:bean>
+
+	<beans:bean class="controller.AdminCustomerController">
+		<beans:property name="user_dao" ref="adminUser_dao" />
+	</beans:bean>
+
+	<beans:bean class="controller.AdminProductController">
+		<beans:property name="product_dao"
+			ref="adminProduct_dao" />
+		<beans:property name="category_dao" ref="category_dao" />
+	</beans:bean>
+
+	<beans:bean class="controller.AdminOrderController">
+		<beans:property name="order_dao" ref="adminOrder_dao" />
+		<beans:property name="orderdetail_dao"
+			ref="adminOrderDetail_dao" />
+		<beans:property name="payment_dao" ref="adminPayment_dao" />
+		<beans:property name="return_dao" ref="adminReturn_daoBean"/>
+	</beans:bean>
+
+	<beans:bean id="adminLoginInterceptor"
+		class="interceptor.AdminLoginInterceptor" />
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**" />
+			<mvc:exclude-mapping path="/admin/login_form" />
+			<mvc:exclude-mapping path="/admin/login" />
+			<mvc:exclude-mapping path="/admin/logout" />
+			<beans:ref bean="adminLoginInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+</beans:beans>

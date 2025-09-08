@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+:root {
+    --color-primary: #007bff;
+    --color-success: #28a745;
+    --color-text: #212529;
+    --color-text-secondary: #6c757d;
+    --color-border: #dee2e6;
+    --color-background: #f8f9fa;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --border-radius: 8px;
+}
+
+body {
+    font-family: 'Noto Sans KR', 'Inter', sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    margin: 0;
+    padding: 2rem 1rem;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.page-header {
+    margin-bottom: 2rem;
+}
+.page-header h1 {
+    font-size: 2.25rem;
+    margin: 0;
+}
+.page-header p {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin-top: 0.5rem;
+}
+
+.card {
+    background-color: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-sm);
+}
+.card h2 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* Progress Bar */
+.progress-steps {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.step {
+    text-align: center;
+    position: relative;
+    width: 80px;
+}
+.step-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: var(--color-border);
+    margin: 0 auto 0.75rem;
+    transition: background-color 0.4s ease;
+}
+.step-label {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    transition: color 0.4s ease;
+}
+.step-line {
+    flex-grow: 1;
+    height: 2px;
+    background-color: var(--color-border);
+    margin: 11px 0;
+    transition: background-color 0.4s ease;
+}
+.step.active .step-icon, .step.active ~ .step-line {
+    background-color: var(--color-success);
+}
+.step.active .step-label {
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+/* Product List */
+.product-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+.product-item + .product-item { border-top: 1px solid var(--color-border); }
+.product-image { width: 100px; height: 100px; border-radius: var(--border-radius); object-fit: cover; }
+.product-info { flex-grow: 1; }
+.product-info p { margin: 0.25rem 0; }
+.product-brand { font-size: 0.875rem; color: var(--color-text-secondary); }
+.product-name { font-size: 1.1rem; font-weight: 500; }
+.product-option { font-size: 0.875rem; color: var(--color-text-secondary); }
+.product-quantity { font-size: 1rem; color: var(--color-text-secondary); min-width: 40px; text-align: right; }
+.product-price { font-size: 1.2rem; font-weight: 700; min-width: 120px; text-align: right; }
+
+/* Info Grid */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+.info-list { margin: 0; display: grid; grid-template-columns: 120px 1fr; gap: 1rem; }
+.info-list dt { font-weight: 500; color: var(--color-text-secondary); }
+.info-list dd { margin: 0; }
+.payment-summary hr { grid-column: 1 / -1; border: 0; border-top: 1px solid var(--color-border); margin: 0; }
+.payment-summary .discount { color: #dc3545; }
+.payment-summary .total { font-size: 1.2rem; font-weight: 700; }
+.payment-summary .total-amount { font-size: 1.5rem; font-weight: 700; color: var(--color-primary); }
+
+/* Page Actions */
+.page-actions {
+    text-align: center;
+    margin-top: 1rem;
+}
+.btn {
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 0 0.5rem;
+}
+.btn-secondary { background-color: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+.btn-secondary:hover { background-color: #0069d9; border-color: #0062cc; }
+

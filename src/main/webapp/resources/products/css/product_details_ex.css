@@ -1,0 +1,584 @@
+/* Noto Sans KR 폰트 임포트 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans KR', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* 상단 알림 배너 */
+.top-banner {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+/* 메인 컨테이너 */
+.main-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    overflow: hidden;
+    position: relative;
+}
+
+/* 특가 라벨 */
+.special-label {
+    position: absolute;
+    top: 20px;
+    left: -30px;
+    background: linear-gradient(45deg, #ff4757, #ff3838);
+    color: white;
+    padding: 10px 40px;
+    transform: rotate(-45deg);
+    font-weight: bold;
+    z-index: 10;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0) rotate(-45deg); }
+    40% { transform: translateY(-10px) rotate(-45deg); }
+    60% { transform: translateY(-5px) rotate(-45deg); }
+}
+
+/* 카운트다운 타이머 */
+.countdown-section {
+    background: linear-gradient(45deg, #ff4757, #ff3838);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.countdown-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.countdown-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    animation: flashText 1s infinite;
+}
+
+@keyframes flashText {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.countdown-timer {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.time-unit {
+    background: rgba(255,255,255,0.2);
+    padding: 10px 15px;
+    border-radius: 10px;
+    min-width: 60px;
+    backdrop-filter: blur(10px);
+}
+
+.time-number {
+    font-size: 28px;
+    font-weight: bold;
+    display: block;
+}
+
+.time-label {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+/* 메인 상품 영역 */
+.product-section {
+    display: flex;
+    padding: 40px;
+    gap: 40px;
+    position: relative;
+}
+
+.image-section {
+    flex: 1;
+    position: relative;
+}
+
+.product-image {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.product-image:hover {
+    transform: scale(1.05);
+}
+
+.image-badges {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.badge {
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    animation: wiggle 2s infinite;
+}
+
+.badge.new {
+    background: #ff6b6b;
+    color: white;
+}
+
+.badge.hot {
+    background: #ffa500;
+    color: white;
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    75% { transform: rotate(-5deg); }
+}
+
+.info-section {
+    flex: 1;
+    position: relative;
+}
+
+.company-name {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.product-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    line-height: 1.2;
+}
+
+.rating-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.stars {
+    color: #ffd700;
+    font-size: 18px;
+}
+
+.rating-text {
+    color: #666;
+    font-size: 14px;
+}
+
+/* 가격 섹션 */
+.price-section {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.price-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: shimmer 2s infinite;
+}
+
+.discount-badge {
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    background: #fff;
+    color: #ff4757;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 18px;
+    animation: bounce 1s infinite;
+}
+
+.original-price {
+    text-decoration: line-through;
+    opacity: 0.8;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.current-price {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.price-description {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* 재고 알림 */
+.stock-alert {
+    background: linear-gradient(45deg, #ff9ff3, #f368e0);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+    text-align: center;
+    animation: pulse 2s infinite;
+}
+
+.stock-text {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.stock-count {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffeb3b;
+}
+
+/* 수량 선택 */
+.quantity-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.quantity-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.quantity-btn {
+    background: #ff4757;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.quantity-btn:hover {
+    background: #ff3838;
+    transform: scale(1.1);
+}
+
+.quantity-input {
+    width: 60px;
+    height: 40px;
+    text-align: center;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    background: white;
+}
+
+.total-price {
+    margin-left: auto;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff4757;
+}
+
+/* 버튼 영역 */
+.button-section {
+    display: flex;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.cart-btn {
+    flex: 1;
+    background: linear-gradient(45deg, #4834d4, #686de0);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.cart-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.cart-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.cart-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.buy-btn {
+    flex: 1;
+    background: linear-gradient(45deg, #ff6b6b, #ff4757);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    animation: heartbeat 2s infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.buy-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.buy-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.buy-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* 고객 혜택 */
+.benefits-section {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px 0;
+}
+
+.benefits-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    color: #555;
+}
+
+.benefit-icon {
+    color: #ff4757;
+    font-size: 16px;
+}
+
+/* 리뷰 섹션 */
+.review-section {
+    background: #f8f9fa;
+    padding: 40px;
+    margin-top: 20px;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.review-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+}
+
+.review-summary {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.review-score {
+    font-size: 32px;
+    font-weight: bold;
+    color: #ff4757;
+}
+
+.review-stars {
+    color: #ffd700;
+    font-size: 20px;
+}
+
+.review-box {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.review-box:hover {
+    transform: translateY(-5px);
+}
+
+.review-user {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.review-content {
+    line-height: 1.6;
+    color: #555;
+}
+
+/* 떠다니는 효과 */
+.floating-element {
+    position: absolute;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+.floating-1 {
+    top: 20%;
+    right: 5%;
+    font-size: 24px;
+    color: #ff6b6b;
+    animation-delay: 0s;
+}
+
+.floating-2 {
+    top: 60%;
+    right: 8%;
+    font-size: 20px;
+    color: #4834d4;
+    animation-delay: 2s;
+}
+
+.floating-3 {
+    top: 80%;
+    right: 3%;
+    font-size: 18px;
+    color: #ffa500;
+    animation-delay: 4s;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .product-section {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .countdown-timer {
+        flex-wrap: wrap;
+    }
+
+    .button-section {
+        flex-direction: column;
+    }
+}

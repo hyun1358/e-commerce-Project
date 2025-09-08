@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="w">
+	<!-- 유저의 찜 목록에 상품 아이디만 가져오는 -->
+	<select id="user_wishList_productId" parameterType="java.util.Map" resultType="Integer">
+	    select product_id 
+	    from favorite 
+	    where user_idx = #{user_idx} 
+	      and product_id in
+	    <foreach collection="product_id" item="pid" open="(" separator="," close=")">
+	        #{pid}
+	    </foreach>
+	</select>
+	
+	<select id="user_wishList_selectOne" parameterType="java.util.Map" resultType="int">
+    	select count(*) from favorite where user_idx = #{user_idx} and product_id = #{product_id}
+	</select>
+	
+	<insert id="user_wishList_insert" parameterType="java.util.Map">
+		insert into favorite values(seq_fav_idx.nextval,#{user_idx},#{product_id})
+	</insert>
+	
+	<delete id="user_wishList_delete" parameterType="java.util.Map">
+		delete from favorite where user_idx = #{user_idx} and product_id = #{product_id}
+	</delete>
+	
+	<select id="wish_count" resultType="int" parameterType="int"> select count(*) from favorite where user_idx = #{user_idx} </select>
+	
+	<select id="selectUserAll" parameterType="int" resultType="vo.WishlistVO">
+		SELECT w.product_id, w.user_idx, w.favorite_id, p.product_name,p.price,p.sale_price, p.final_price,p.description,p.image1, p.is_visible
+		FROM favorite w
+		JOIN product_view p ON p.product_id = w.product_id
+		WHERE w.user_idx = #{user_idx}
+   </select>
+   
+   <delete id="mypage_wishlist_delete" parameterType="java.util.Map">
+   		delete from favorite where user_idx = #{user_idx} and product_id = #{product_id}
+   </delete>
+   
+</mapper>

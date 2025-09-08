@@ -1,0 +1,144 @@
+@charset "UTF-8";
+
+.modal-overlay
+{
+    position: fixed;           /* 화면 고정 */
+    top: 0;
+    left: 0;
+    width: 100vw;              /* 뷰포트 기준 너비 */
+    height: 100vh;             /* 뷰포트 기준 높이 */
+    background-color: rgba(0, 0, 0, 0.45); /* 검정 배경 + 투명도 */
+    display: flex;             /* 중앙 정렬 위해 사용 가능 */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;    
+    display: none;
+}
+
+
+.modal-container
+{
+  position: fixed;
+  top: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 500px; max-width: 1400px; width: 80%;
+  min-height: auto;  max-height: 750px;  height: 80%; /* 높이 고정 */
+  overflow-y: auto; /* 세로 스크롤 활성화 */
+  display: none;
+  background-color: #fff;
+  border-radius: 16px;
+  z-index: 5;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+.modal-close_bnt
+{
+	width: 30px;
+	height: 30px;
+	background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>');
+	background-color: #fff;
+	cursor: pointer;
+	border: none;
+	position: absolute; top: 15px; right: 15px;
+}
+
+.modalProductCards
+{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 100px;
+	margin:30px 0;
+}
+
+.modalProductCard
+{
+	width: 270px;
+	height: 200px;
+	border: 2px solid #666; border-radius: 8px;
+	padding: 10px;
+}
+
+.modal-card-product-img
+{
+	width: 100%;
+	height: 100px;
+	display: flex; justify-content: center; align-items: center;
+}
+.modal-card-product-img img
+{
+	width: 80px;
+	height: 75px;
+}
+
+
+.modal-card-product-name
+{
+	  width: 97%;
+	  height: 50px;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  padding: 5px;
+}
+.modal-card-product-name strong
+{
+	text-align: center;
+}
+
+.modal-card-product-price
+{
+	  width: 97%;
+	  height: auto;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  padding: 5px;
+	  margin:0 auto;
+}
+.modal-card-product-price strong
+{
+	text-align: center;
+	background: linear-gradient(to right, #2E86C1, #FDFEFE);
+	border-radius: 8px;
+	padding: 5px;
+}
+
+.productSpecifications
+{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: flex-start;
+	max-height: 450px;
+	gap: 100px;
+}
+.productSpecification
+{
+	width: 270px;
+	height: auto;
+	border: 2px solid #666; border-radius: 8px;
+	padding: 10px;
+	margin-bottom: 30px;
+}
+.product_Specification > h3
+{
+	margin-bottom: 5px;
+}
+
+.product_Specification span
+{
+	display: inline-block;
+	margin-top: 5px;
+}
+
+.product_Specification
+{
+	margin-bottom: 30px;
+}
+
+.wishlist-btn.active svg {
+	fill: red; /* 찜 활성 상태 표시 */
+}

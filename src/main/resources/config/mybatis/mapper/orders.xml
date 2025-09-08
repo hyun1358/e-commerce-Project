@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="o">
+
+	<select id="selectOrderList" resultType="orderlist">
+		select *
+		from ORDER_VIEW
+		where user_idx = #{user_idx} ORDER BY
+		order_date DESC, order_id
+	</select>
+
+	<select id="selectOrderOne" parameterType="String"
+		resultType="order">
+		select * from orders where order_id=#{order_id}
+	</select>
+	
+	<select id="selectStatusList" resultType="orderlist" parameterType="java.util.Map"> select * from ORDER_VIEW where user_idx = #{user_idx} and status = #{status} ORDER BY order_date DESC, order_id ASC </select>
+
+	<select id="selectedCartItems" parameterType="java.util.Map"
+		resultType="cart">
+		SELECT
+		*
+		FROM CART_VIEW
+		WHERE
+		user_idx = #{user_idx}
+		AND cart_id IN
+		<foreach item="id" collection="cart_ids" open="("
+			separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
+
+	<insert id="insert_Orders" parameterType="java.util.Map"> INSERT INTO orders (
+		order_id, user_idx, status ) VALUES ( #{order_id}, #{user_idx},
+		#{status} )
+	</insert>
+
+
+	<!-- 결제완료후 주문컬럼 update -->
+	<update id="order_update" parameterType="order"> UPDATE orders SET
+		status = #{status}, shipping_phone = #{shipping_phone}, shipping_name
+		= #{shipping_name}, zipcode = #{zipcode}, address1 = #{address1},
+		request = #{request}, cardname = #{cardname}, cardnumber =
+		#{cardnumber}, order_date = SYSDATE WHERE order_id = #{order_id}
+	</update>
+
+
+	<select id="latestOrderOne" resultType="orderlist">
+		SELECT *
+		FROM ORDER_VIEW
+		WHERE user_idx = #{user_idx}
+		AND order_id = (
+		SELECT order_id
+		FROM (
+		SELECT order_id, order_date
+		FROM ORDER_VIEW
+		WHERE user_idx = #{user_idx}
+		ORDER BY order_date DESC
+		)
+		WHERE ROWNUM = 1
+		)
+	</select>
+	
+	<update id="thread_ststus_update" parameterType="java.util.Map">
+		update orders set status = #{status} where order_id = #{order_id}
+	</update>
+	
+	<select id="order_count" resultType="int" parameterType="int">
+		select count(*) from orders 
+		where user_idx = #{user_idx}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

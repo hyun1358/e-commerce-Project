@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+footer {
+	color: #555;
+	background: #F0F0F0;
+	padding-top: 40px;
+	padding-bottom: 20px;
+	margin-top: 90px;
+}
+
+footer .container {
+	max-width: 1100px;
+	margin: auto;
+	display: flex;
+	align-items: center;
+}
+
+footer .container .left {
+	flex: 1
+}
+
+footer .container .left h2 {
+	margin-top: 10px;
+}
+
+footer .container .left p {
+	margin-top: 10px;
+	font-size: 13px
+}
+
+footer .container .left .sns_img {
+	margin-top: 30px;
+}
+
+footer .container .left .sns_img i {
+	font-size: 24px;
+	margin-right: 20px;
+}
+
+footer .right {
+	display: flex;
+	gap: 50px;
+	margin: 0;
+	padding: 0px;
+}
+
+footer .list h3 {
+	font-size: 15px;
+	margin-bottom: 10px;
+	color: #666;
+}
+
+footer .list ul {
+	list-style: none;
+	padding: 0;
+}
+
+footer .list ul li {
+	margin-bottom: 6px;
+	font-size: 14px;
+	color: #555;
+}
+
+footer .copy_right {
+	margin-top: 30px;
+	padding-top: 20px;
+	border-top: 1px solid #ccc;
+	display: flex;
+	justify-content: center;
+	position: relative;
+	flex-direction: column;
+	align-items: center;
+}
+
+footer .copy_right .left-links {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-size: 13px;
+	color: #666;
+}
+
+footer .copy_right .left-links .top-links {
+	display: flex;
+	gap: 15px;
+	margin-bottom: 5px;
+}
+
+footer .copy_right .left-links .bottom-copy {
+	font-size: 13px;
+	color: #666;
+}
+
+ .footer-inner {
+	position: absolute;
+	right: 20px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+/*
+.footer-inner a {
+	text-decoration: none;
+	color:#F0F0F0;
+	font-size: 13px;
+	visibility: hidden; 
+	transition: color 0.3s;
+}
+
+.footer-inner a:hover {
+	color: #555;#007bff;
+	visibility: visible; hover 시 보이게 함
+	text-decoration: underline;
+} */
+
+.footer-inner a {
+	text-decoration: none;
+	color: #F0F0F0; /* 배경색과 동일하게 해서 기본적으로 안 보이게 */
+	font-size: 13px;
+	visibility: hidden; /* 요소는 차지하지만 보이지 않음 */
+	transition: color 0.3s;
+}
+
+.footer-inner:hover a {
+	visibility: visible; /* hover 시 보이게 함 */
+	color: #666;/* #007bff */
+	text-decoration: underline;
+}

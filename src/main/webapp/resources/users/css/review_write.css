@@ -1,0 +1,119 @@
+@charset "UTF-8";
+body {
+    background-color: #f9f9f9;
+}
+
+/* 상품 정보 관련 스타일 추가 */
+.product-info {
+  display: flex;/* 가로 방향 레이아웃 */
+  align-items: center; /* 이미지와 텍스트를 수직 가운데 정렬 */
+  gap: 20px; /* 이미지와 텍스트 사이 간격 */
+  margin-bottom: 20px;
+  border: solid 1px #ccc;
+  border-radius: 8px;
+}
+
+.product-image {
+  max-width: 120px;
+  height: auto;
+  border-radius: 8px;
+/*   border: 1px solid #eee; */
+}
+
+.product-name {
+  font-size: 15px;
+  color: black;
+  margin: 0; /* 위아래 마진 제거 */
+}
+.review-container {
+  max-width: 600px;
+  margin: 10px auto;
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+}
+.review-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+     resize: none;
+}
+
+/* input[type="file"] {
+    font-size: 15px;
+    margin-right: 12px;
+} */
+
+input[type="file"]::file-selector-button {
+  margin-right: 12px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+border: 1px solid #666
+}
+.rating{
+	text-align: center;
+	margin-bottom: 30px;
+	margin-top: 40px;
+}
+
+.rating span {
+    font-size: 30px;
+    cursor: pointer;
+    color: #ccc;
+}
+.rating span.selected {
+    color: #FFD700;
+}
+.button-group {
+    display: flex;
+    justify-content: space-between;
+}
+.btn {
+    padding: 7px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.btn.submit {
+    background-color:#3a5ecc;/* #4f5bd5 */
+    color: white;/* #e0e0e0 */
+}
+
+.btn.submit:hover{
+	background-color: #2f4fb3;
+	/*  background-color: #5a7de2; */ /* 더 밝고 화사한 파랑 */
+/* background-color: #e6ecff; 
+color: #3a5ecc; */
+}
+.btn.cancel {
+    background-color: white;
+    color: #4f5bd5;
+    border: 1px #4f5bd5 solid;
+}
+
+.btn.cancel:hover {
+	  background-color: #f0f2ff;
+}
+

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="n">
+	<select id="notice_count" resultType="int">
+		select count(*) from notice
+	</select>
+	
+	<select id="notice_paging" resultType="vo.NoticeVO" parameterType="java.util.Map">
+		select * from
+		(
+			select notice.*, rownum as rnum
+			from 
+			(
+				select * from notice
+				<choose>
+					<when test="sort == 'all'">
+						order by created_at asc
+					</when>
+					<when test="sort == 'latest'">
+						order by created_at asc
+					</when>
+					<when test="sort == 'view'">
+						order by views desc
+					</when>
+				</choose>
+			) notice
+			where rownum &lt; = ${endRow}
+		)
+		where rnum &gt; = #{startRow}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

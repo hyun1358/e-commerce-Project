@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminproduct">
+
+	<select id="product_listAll" resultType="vo.AdminProductVO">
+		SELECT
+		product_id,
+		category_id,
+		regdate,
+		image1,
+		product_name,
+		price,
+		sale_price,
+		sales_volume,
+		stock,
+		is_visible,
+		name
+		FROM vw_product_with_category
+		ORDER
+		BY regdate DESC, product_id DESC
+	</select>
+
+	<select id="get_productById" resultType="vo.ProductUploadVO"
+		parameterType="int[]">
+		SELECT * FROM vw_product_with_category
+		WHERE
+		product_id IN
+		<foreach collection="array" item="id" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</select>
+
+	<!-- paging처리를 위한 쿼리 -->
+	<select id="productCount" resultType="int">
+		select count(*) from
+		product
+	</select>
+
+	<select id="productPagingList" resultType="vo.AdminProductVO"
+		parameterType="java.util.Map">
+		SELECT * FROM (
+		SELECT inner_table.*, ROWNUM AS rnum
+		FROM
+		(
+		SELECT * FROM vw_product_with_category ORDER BY regdate DESC,
+		product_id
+		DESC
+		) inner_table
+		WHERE ROWNUM &lt;= #{endRow}
+		)
+		WHERE rnum
+		&gt;= #{startRow}
+	</select>
+
+	<!-- countSearchResults,searchProductsPaging -->
+	<select id="countSearchResults"
+		parameterType="vo.SearchProductVO" resultType="int">
+		SELECT COUNT(*) FROM vw_product_with_category
+		<where>
+			<if
+				test="searchCategory != null and searchKeyword != null and searchKeyword != ''">
+				<choose>
+					<when test="searchCategory == 'product_id'">
+						product_id = #{searchKeyword}
+					</when>
+					<when test="searchCategory == 'product_name'">
+						product_name LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test="searchCategory == 'company'">
+						company LIKE '%' || #{searchKeyword} || '%'
+					</when>
+				</choose>
+			</if>
+
+			<if test="parentCategoryId != null and parentCategoryId != ''">
+				AND parent_category_id = #{parentCategoryId}
+			</if>
+			<if test="childCategoryId != null and childCategoryId != ''">
+				AND category_id = #{childCategoryId}
+			</if>
+
+			<if test="dateStart != null and dateStart != ''">
+				AND regdate &gt;= TO_DATE(#{dateStart}, 'YYYY-MM-DD')
+			</if>
+			<if test="dateEnd != null and dateEnd != ''">
+				AND regdate &lt; TO_DATE(#{dateEnd}, 'YYYY-MM-DD') + 1
+			</if>
+
+			<if test="productStatus != null and productStatus != 'all'">
+				AND is_visible = #{productStatus}
+			</if>
+			<if test="stockStatus != null and stockStatus != 'all'">
+				<choose>
+					<when test="stockStatus == 'inStock'">
+						AND stock &gt; 0
+					</when>
+					<when test="stockStatus == 'soldOut'">
+						AND stock = 0
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+
+	<select id="searchProductsPaging" parameterType="map"
+		resultType="vo.AdminProductVO">
+		SELECT * FROM (
+		SELECT inner_table.*, ROWNUM AS rnum FROM (
+		SELECT *
+		FROM vw_product_with_category
+		<where>
+			<if
+				test="search.searchCategory != null and search.searchKeyword != null and search.searchKeyword != ''">
+				<choose>
+					<when test="search.searchCategory == 'product_id'">
+						product_id = #{search.searchKeyword}
+					</when>
+					<when test="search.searchCategory == 'product_name'">
+						product_name LIKE '%' || #{search.searchKeyword} ||
+						'%'
+					</when>
+					<when test="search.searchCategory == 'company'">
+						company LIKE '%' || #{search.searchKeyword} || '%'
+					</when>
+				</choose>
+			</if>
+
+			<if
+				test="search.parentCategoryId != null and search.parentCategoryId != ''">
+				AND parent_category_id = #{search.parentCategoryId}
+			</if>
+			<if
+				test="search.childCategoryId != null and search.childCategoryId != ''">
+				AND category_id = #{search.childCategoryId}
+			</if>
+
+			<if test="search.dateStart != null and search.dateStart != ''">
+				AND regdate &gt;= TO_DATE(#{search.dateStart},
+				'YYYY-MM-DD')
+			</if>
+			<if test="search.dateEnd != null and search.dateEnd != ''">
+				AND regdate &lt; TO_DATE(#{search.dateEnd}, 'YYYY-MM-DD')
+				+ 1
+			</if>
+
+			<if
+				test="search.productStatus != null and search.productStatus != 'all'">
+				AND is_visible = #{search.productStatus}
+			</if>
+			<if
+				test="search.stockStatus != null and search.stockStatus != 'all'">
+				<choose>
+					<when test="search.stockStatus == 'inStock'">
+						AND stock &gt; 0
+					</when>
+					<when test="search.stockStatus == 'soldOut'">
+						AND stock = 0
+					</when>
+				</choose>
+			</if>
+		</where>
+		<choose>
+			<when test="search.sortOption == 'productId'">
+				ORDER BY product_id
+			</when>
+			<when test="search.sortOption == 'productIdDesc'">
+				ORDER BY product_id desc
+			</when>
+			<when test="search.sortOption == 'latest'">
+				ORDER BY regdate DESC, product_id DESC
+			</when>
+			<when test="search.sortOption == 'stockAsc'">
+				ORDER BY stock asc, product_id asc
+			</when>
+			<when test="search.sortOption == 'stockDesc'">
+				ORDER BY stock desc, product_id desc
+			</when>
+			<when test="search.sortOption == 'productName'">
+				ORDER BY product_name, product_id ASC
+			</when>
+			<when test="search.sortOption == 'productNameDesc'">
+				ORDER BY product_name desc, product_id DESC
+			</when>
+			<when test="search.sortOption == 'priceAsc'">
+				ORDER BY price ASC, product_id ASC
+			</when>
+			<when test="search.sortOption == 'priceDesc'">
+				ORDER BY price DESC, product_id DESC
+			</when>
+			<when test="search.sortOption == 'priceSaleAsc'">
+				ORDER BY sale_price ASC, product_id ASC
+			</when>
+			<when test="search.sortOption == 'priceSaleDesc'">
+				ORDER BY sale_price DESC, product_id DESC
+			</when>
+			<otherwise>
+				ORDER BY regdate DESC, product_id DESC
+			</otherwise>
+		</choose>
+		) inner_table
+		WHERE ROWNUM &lt;= #{endRow}
+		)
+		WHERE rnum &gt;= #{startRow}
+	</select>
+
+
+	<select id="searchProductWithFillter"
+		parameterType="vo.SearchProductVO" resultType="vo.AdminProductVO">
+		SELECT * FROM vw_product_with_category
+		<where>
+			<if
+				test="searchCategory != null and searchKeyword != null and searchKeyword != ''">
+				<choose>
+					<when test="searchCategory == 'product_id'">
+						product_id = #{searchKeyword}
+					</when>
+					<when test="searchCategory == 'product_name'">
+						product_name LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test="searchCategory == 'company'">
+						company LIKE '%' || #{searchKeyword} || '%'
+					</when>
+				</choose>
+			</if>
+
+			<if test="parentCategoryId != null and parentCategoryId != ''">
+				AND parent_category_id = #{parentCategoryId}
+			</if>
+			<if test="childCategoryId != null and childCategoryId != ''">
+				AND category_id = #{childCategoryId}
+			</if>
+
+			<if test="dateStart != null and dateStart != ''">
+				AND regdate &gt;= TO_DATE(#{dateStart}, 'YYYY-MM-DD')
+			</if>
+			<if test="dateEnd != null and dateEnd != ''">
+				AND regdate &lt; TO_DATE(#{dateEnd}, 'YYYY-MM-DD') + 1
+			</if>
+
+			<if test="productStatus != null and productStatus != 'all'">
+				AND is_visible = #{productStatus}
+			</if>
+			<if test="stockStatus != null and stockStatus != 'all'">
+				<choose>
+					<when test="stockStatus == 'inStock'">
+						AND stock &gt; 0
+					</when>
+					<when test="stockStatus == 'soldOut'">
+						AND stock = 0
+					</when>
+				</choose>
+			</if>
+		</where>
+
+		<choose>
+			<when test="sortOption == 'productId'">
+				ORDER BY product_id
+			</when>
+			<when test="sortOption == 'productIdDesc'">
+				ORDER BY product_id desc
+			</when>
+			<when test="sortOption == 'latest'">
+				ORDER BY regdate DESC, product_id DESC
+			</when>
+			<when test="sortOption == 'productName'">
+				ORDER BY product_name, product_id ASC
+			</when>
+			<when test="sortOption == 'productNameDesc'">
+				ORDER BY product_name desc, product_id DESC
+			</when>
+			<when test="sortOption == 'priceAsc'">
+				ORDER BY price ASC, product_id ASC
+			</when>
+			<when test="sortOption == 'priceDesc'">
+				ORDER BY price DESC, product_id DESC
+			</when>
+			<when test="sortOption == 'priceSaleAsc'">
+				ORDER BY sale_price ASC, product_id ASC
+			</when>
+			<when test="sortOption == 'priceSaleDesc'">
+				ORDER BY sale_price DESC, product_id DESC
+			</when>
+			<otherwise>
+				ORDER BY regdate DESC, product_id DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<insert id="insertProduct" parameterType="vo.ProductUploadVO">
+		insert into product (
+		product_id, product_name, company, description,
+		price,
+		sale_price,
+		stock,
+		image1, image2, image3, image4, image5,
+		is_visible,
+		category_id,
+		regdate, sales_volume
+		) values (
+		seq_pro_idx.NEXTVAL,
+		#{product_name},
+		#{company},
+		#{description},
+		#{price}, #{sale_price}, #{stock},
+		#{image1,
+		jdbcType=VARCHAR}, #{image2, jdbcType=VARCHAR},
+		#{image3,
+		jdbcType=VARCHAR}, #{image4, jdbcType=VARCHAR}, #{image5,
+		jdbcType=VARCHAR},
+		#{is_visible}, #{category_id}, sysdate, 0
+		)
+	</insert>
+
+	<update id="updateProduct" parameterType="vo.ProductUploadVO">
+		UPDATE product
+		<set>
+			<if test="product_name != null">product_name = #{product_name},</if>
+			<if test="company != null">company = #{company},</if>
+			<if test="description != null">description = #{description},</if>
+			<if test="price != null">price = #{price},</if>
+			<if test="sale_price != null">sale_price = #{sale_price},</if>
+			<if test="stock != null">stock = #{stock},</if>
+			<if test="is_visible != null">is_visible = #{is_visible},</if>
+			<if test="category_id != null">category_id = #{category_id},</if>
+
+			<!-- 이미지 필드 처리 -->
+			<if test="image1 != 'NO_CHANGE'">image1 = #{image1, jdbcType=VARCHAR},</if>
+			<if test="image2 != 'NO_CHANGE'">image2 = #{image2, jdbcType=VARCHAR},</if>
+			<if test="image3 != 'NO_CHANGE'">image3 = #{image3, jdbcType=VARCHAR},</if>
+			<if test="image4 != 'NO_CHANGE'">image4 = #{image4, jdbcType=VARCHAR},</if>
+			<if test="image5 != 'NO_CHANGE'">image5 = #{image5, jdbcType=VARCHAR}</if> <!-- 마지막 항목은 쉼표 제거 -->
+		</set>
+		WHERE product_id = #{product_id}
+	</update>
+
+
+	<delete id="deleteProduct" parameterType="java.util.List">
+		delete from product where product_id in
+		<foreach item="id" collection="list" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<delete id="deleteReview" parameterType="java.util.List">
+		delete from review where product_id in
+		<foreach item="id" collection="list" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteOrderDetail" parameterType="java.util.List">
+		delete from order_detail where product_id in
+		<foreach item="id" collection="list" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	
+	<delete id="deleteCart" parameterType="java.util.List">
+		delete from cart where product_id in
+		<foreach item="id" collection="list" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteFavorite" parameterType="java.util.List">
+		delete from favorite where product_id in
+		<foreach item="id" collection="list" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteInquiry" parameterType="java.util.List">
+		delete from inquiry where product_id in
+		<foreach item="id" collection="list" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+<!-- 	<delete id="deleteLaptopSpec" parameterType="java.util.List">
+		delete from laptop_spec where product_id in
+		<foreach item="id" collection="list" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete> -->
+	
+	<delete id="deleteApprovalPending" parameterType="java.util.List">
+		delete from approval_pending where related_product_id in
+		<foreach item="id" collection="list" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

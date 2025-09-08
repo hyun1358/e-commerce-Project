@@ -1,0 +1,74 @@
+@charset "UTF-8";
+
+.banner-container {
+  width: 1366px;
+  margin: 0 auto;
+  position: relative;
+  display: block;
+  /*border: solid red 1px;*/
+}
+
+
+.banner-container #banner_main{
+      display: block;
+      height: 600px;
+      width: 100%;
+      /* border-radius: 10px; */
+      transition: opacity 0.5s ease-in-out; /* 추가된 전환 효과 */
+  		opacity: 1; /* 시작 상태 */
+      }
+
+.banner-container .image-button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10; /* 이미지 위로 올라오게 */
+}
+
+.banner-container .image-button.prev {
+  /* position: absolute;
+  top: 50%;
+  transform: translateY(-50%); */
+  left: 20px;
+  outline: none;
+}
+
+.banner-container .image-button.next {
+  /* position: absolute;
+  top: 50%;
+  transform: translateY(-50%); */
+  right: 20px;
+  outline: none;
+}
+
+.banner-container .image-button img {
+  width: 30px;
+  height: 50px;
+  border-style: none;
+  opacity: 0.5; /* 0.0 (완전 투명) ~ 1.0 (완전 불투명) */
+  /*transition: opacity 0.3s ease;*/
+}
+
+.banner-container .image-button img:hover {
+  opacity: 1.0;
+}
+
+.banner-image-wrapper {
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
+}
+
+.banner-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.5s ease-in-out;
+  display: block;
+  backface-visibility: hidden; /* 깜빡임 방지 */
+  will-change: opacity;        /* 하드웨어 가속 */
+}

@@ -1,0 +1,195 @@
+* {
+margin: 0;
+padding: 0;
+}
+
+body {
+background-color: #f8f8f8;
+color: #333;
+}
+
+.notice_container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 50px 10px 60px;
+}
+
+h1 {
+color: #333;
+font-size: 2rem;
+font-weight: 500;
+margin-bottom: 10px;
+}
+
+.filter-section {
+display: flex;
+justify-content: flex-end;
+margin-bottom: 15px;
+}
+
+.filter-select {
+padding: 10px 15px;
+border: 1px solid #e0e0e0;
+border-radius: 10px;
+background-color:transparent;
+font-size: 14px;
+cursor: pointer;
+box-shadow: 5px rgba(0,0,0,0.05);
+color: #555;
+transition: all 0.2s ease;
+outline: none;
+width: 104px;
+border:none;
+}
+
+.filter-select:hover {
+border-color: #1e90ff;
+}
+
+.notice-table {
+width: 100%;
+border-collapse: separate;
+border-spacing: 0;
+background-color: #fff;
+box-shadow: 5px rgba(0,0,0,0.05);
+border-radius: 16px;
+overflow: hidden;
+margin-bottom: 30px;
+table-layout: fixed; /* 추가: 테이블 레이아웃 고정 */
+}
+
+.notice-table th,
+.notice-table td {
+padding: 18px 20px;
+border-bottom: 1px solid #eef4ff;
+}
+
+/* 테이블 칼럼 너비 조정 */
+.notice-table th:nth-child(1),
+.notice-table td:nth-child(1) {
+width: 10%;
+text-align: center; /* NO 가운데 정렬 */
+}
+
+.notice-table th:nth-child(2),
+.notice-table td:nth-child(2) {
+width: 15%;
+text-align: center; /* 분류 가운데 정렬 */
+}
+
+.notice-table th:nth-child(3),
+.notice-table td:nth-child(3) {
+width: 55%;
+text-align: left; /* 제목 왼쪽 정렬 */
+}
+
+.notice-table th:nth-child(4),
+.notice-table td:nth-child(4) {
+width: 10%;
+text-align: center; /* 등록일 가운데 정렬 */
+}
+
+.notice-table th:nth-child(5),
+.notice-table td:nth-child(5) {
+width: 10%;
+text-align: center; /* 등록일 가운데 정렬 */
+}
+
+.notice-table th {
+font-weight: 700;
+color: #333;
+font-size: 15px;
+border-bottom: 5px solid #eee;
+}
+
+.notice-table tr {
+transition: all 0.2s ease;
+}
+
+.notice-table tbody tr:last-child td {
+border-bottom: none;
+}
+
+.category {
+color: #555;
+font-size: 14px;
+}
+
+.notice-link {
+color: #333;
+text-decoration: none;
+transition: color 0.2s ease;
+display: block;
+padding: 5px 0;
+}
+
+#notice-content-area {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 1s ease, opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(20px);
+  padding: 0 20px;
+  border: 0 solid transparent;
+}
+
+.notice-content-area {
+  padding: 10px;
+  /* border: 1px solid #eee; */
+  border-radius: 6px;
+  background-color: #fff;
+  animation: fadeIn 0.4s ease;
+}
+
+
+/* 열릴 때 적용할 클래스 */
+#notice-content-area.open {
+  max-height: 500px; /* 충분한 값으로 설정 (내용보다 크게) */
+  opacity: 1;
+  transform: translateY(-5px);
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.notice-content-area h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #555;
+    font-weight: 500;
+}
+
+.notice-content-area div {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* 간단한 fade-in 애니메이션 */
+@keyframes fadeIn {
+    from 
+    { opacity: 0; transform: translateY(60px); }
+    
+    to 
+    { opacity: 1; transform: translateY(0); }
+}
+
+
+.date {
+color: #888;
+font-size: 14px;
+}
+
+.paging {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap:10px;
+}
+
+.paging a,b
+{
+	padding: 5px;
+}

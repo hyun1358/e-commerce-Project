@@ -1,0 +1,221 @@
+@charset "UTF-8";
+
+.user-edit-card {
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.edit-title {
+    font-size: 25px;
+    font-weight: 600;
+    margin: 0 20px 20px 10px;
+    color: #222;
+    padding-bottom: 10px;
+}
+
+.edit-form {
+    width: 100%;
+    max-width: none;
+}
+
+/* 테이블 레이아웃 스타일 */
+.form-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+}
+
+.form-table th,
+.form-table td {
+    padding: 18px 30px;
+    border-top: 1px solid #e5e8eb;
+    border-bottom: 1px solid #e5e8eb;
+    vertical-align: middle;
+}
+
+.form-table th {
+    background-color: #f9f9f9;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #333;
+    text-align: left;
+    width: 180px;
+    border-right: 1px solid #e5e8eb;
+}
+
+.form-table tr:first-child th,
+.form-table tr:first-child td {
+    border-top: 1px solid #e5e8eb;
+}
+
+.form-table tr:last-child th,
+.form-table tr:last-child td {
+    border-bottom: 1px solid #e5e8eb;
+}
+
+.form-table td {
+    background-color: #fff;
+}
+
+.form-table input[type="text"],
+.form-table input[type="email"],
+.form-table input[type="tel"],
+.form-table input[type="password"] {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #e5e8eb;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: #f9f9f9;
+    transition: border 0.2s, background 0.2s;
+    box-sizing: border-box;
+}
+
+.form-table input:focus {
+    border-color: #4169e1;
+    background: #fff;
+    outline: none;
+}
+
+/* 주소 입력 그룹 */
+.address-input-group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.address-input-group input {
+    flex: 1;
+}
+
+.postcode-search-btn {
+    padding: 8px 14px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #4169e1;
+    color: white;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+.postcode-search-btn:hover {
+    background-color: #3a5ecc;
+}
+
+/* 비밀번호 안내 문구 */
+.password-note {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 6px;
+    line-height: 1.4;
+}
+
+/* 폼 액션 버튼 */
+.form-actions {
+    display: flex;
+    gap: 20px;
+    margin-top: 12px;
+    justify-content: center;
+}
+
+.save-btn, .cancel-btn {
+    padding: 10px 24px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-weight: 500;
+}
+
+.save-btn {
+    background-color: #4169e1;
+    color: white;
+}
+
+.save-btn:hover {
+    background-color: #3a5ecc;
+}
+
+.cancel-btn {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.cancel-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .user-edit-card {
+        padding: 16px 20px;
+    }
+    
+    .edit-form {
+        max-width: 100%;
+    }
+    
+    .form-table th,
+    .form-table td {
+        padding: 14px 16px;
+        font-size: 0.9rem;
+    }
+    
+    .form-table th {
+        width: 120px;
+    }
+    
+    .address-input-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .postcode-search-btn {
+        margin-top: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-table,
+    .form-table tbody,
+    .form-table tr,
+    .form-table th,
+    .form-table td {
+        display: block;
+    }
+    
+    .form-table th {
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid #e5e8eb;
+        padding-bottom: 6px;
+        padding-top: 16px;
+        font-weight: bold;
+        width: auto;
+    }
+    
+    .form-table td {
+        border: none;
+        border-bottom: 2px solid #e5e8eb;
+        padding-top: 6px;
+        padding-bottom: 16px;
+        margin-bottom: 8px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .save-btn, .cancel-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+}

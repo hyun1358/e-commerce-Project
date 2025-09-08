@@ -1,0 +1,185 @@
+* {
+margin: 0;
+padding: 0;
+}
+
+body {
+background-color: #f8f8f8;
+color: #333;
+}
+
+.container {
+max-width: 1000px;
+margin: 0 auto;
+padding-top: 50px;
+padding-bottom: 100px;
+padding-left: 15px;
+padding-right: 15px; /* 컨테이너에 측면 패딩 추가 */
+}
+
+h1 {
+font-size: 2rem;
+font-weight: 500;
+margin-bottom: 40px;
+margin-left: 30px;
+}
+
+.form-container {
+background-color: white;
+border-radius: 16px;
+padding: 30px;
+box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+width: 100%; /* 너비를 100%로 설정 */
+max-width: 940px; /* 최대 너비를 1000px에서 패딩 값을 뺀 값으로 조정 */
+margin: 0 auto 30px auto;
+box-sizing: border-box; /* 패딩이 너비에 포함되지 않도록 설정 */
+}
+
+.title-underline {
+border-bottom: 1px solid #eee;
+padding-bottom: 15px;
+margin-bottom: 20px;
+position: relative;
+width: 100%; /* 전체 너비 차지 */
+}
+
+.required-note {
+font-size: 12px;
+color: #f00;
+text-align: right;
+margin-bottom: 5px;
+}
+
+.input-group {
+margin-bottom: 20px;
+position: relative;
+width: 100%;
+clear: both;
+}
+
+.input-group label {
+display: block;
+margin-bottom: 10px;
+font-size: 14px;
+font-weight: bold;
+color: #333;
+}
+
+.required:after {
+content: "*";
+color: #f00;
+margin-left: 3px;
+}
+
+input, select, textarea {
+width: 100%; /* 전체 너비로 변경 */
+padding: 12px;
+border: 1px solid #ddd;
+border-radius: 8px;
+font-size: 14px;
+box-sizing: border-box; /* 이 요소들만 box-sizing 적용 */
+}
+
+input:focus, select:focus, textarea:focus {
+outline: none;
+border-color: #1e90ff;
+}
+
+textarea {
+min-height: 120px;
+resize: vertical;
+}
+
+.char-count {
+text-align: right;
+font-size: 14px;
+color: #777;
+margin-top: 5px;
+}
+
+.file-upload {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 58px; /* 테두리를 고려한 크기 */
+height: 58px; /* 테두리를 고려한 크기 */
+border: 1px solid #ddd;
+border-radius: 8px;
+cursor: pointer;
+margin-bottom: 10px;
+position: relative;
+}
+
+.file-upload span {
+font-size: 24px;
+color: #777;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.file-upload input[type="file"] {
+display: none;
+}
+
+.file-count {
+font-size: 12px;
+color: #777;
+margin-top: 5px;
+}
+
+.divider {
+border-top: 1px solid #eee;
+margin: 20px 0;
+width: 100%; /* 전체 너비 차지 */
+}
+
+.notice {
+font-size: 12px;
+color: #777;
+margin-bottom: 10px;
+line-height: 1.5;
+width: 100%; /* 전체 너비 차지 */
+}
+
+.button-group {
+display: flex;
+justify-content: center;
+gap: 30px;
+margin-top: 30px;
+}
+
+.btn {
+padding: 14px 25px;
+border-radius: 25px;
+font-size: 14px;
+font-weight: bold;
+cursor: pointer;
+border: none;
+transition: all 0.2s;
+min-width: 80px;
+box-sizing: content-box; /* 버튼의 크기 계산에는 border-box 대신 content-box 사용 */
+}
+
+.btn-cancel {
+background-color: white;
+color: #333;
+border: 1px solid #ddd;
+}
+
+.btn-submit {
+background-color: #1e90ff;
+color: white;
+}
+
+.btn-cancel:hover {
+background-color: #f5f5f5;
+}
+
+.btn-submit:hover {
+background-color: #0077e6;
+}

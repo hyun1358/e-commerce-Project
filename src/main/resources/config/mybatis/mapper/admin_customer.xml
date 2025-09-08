@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminuser">
+
+	<select id="user_select_listAll" resultType="user">
+		select * from users
+		ORDER BY regdate DESC, user_idx DESC
+	</select>
+
+	<select id="get_userById" parameterType="int[]"
+		resultType="vo.UserVO">
+		SELECT * FROM users
+		WHERE user_idx IN
+		<foreach item="idx" collection="array" open="(" separator=","
+			close=")">
+			#{idx}
+		</foreach>
+	</select>
+
+	<!-- paging 처리를 위한 쿼리 -->
+	<select id="userCount" resultType="int">
+		select count(*) from users
+	</select>
+
+	<select id="userPagingList" resultType="user"
+		parameterType="java.util.Map">
+		SELECT * FROM (
+		SELECT inner_table.*, ROWNUM AS rnum
+		FROM
+		(
+		SELECT * FROM users ORDER BY regdate DESC, user_idx DESC
+		) inner_table
+		WHERE ROWNUM &lt;= #{endRow}
+		)
+		WHERE rnum &gt;= #{startRow}
+	</select>
+
+
+	<!-- 총 유저 수 조회 -->
+	<select id="searchUserCount" parameterType="vo.SearchCustomerVO"
+		resultType="int">
+		SELECT COUNT(*) FROM users
+		<where>
+			<if test="searchCategory != null and searchKeyword != null and searchKeyword != ''">
+				<choose>
+					<when test="searchCategory == 'user_id'">
+						user_id LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test="searchCategory == 'user_name'">
+						user_name LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test="searchCategory == 'email'">
+						email LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test="searchCategory == 'phone'">
+						phone LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test="searchCategory == 'address'">
+						(address1 LIKE '%' || #{searchKeyword} || '%' OR address2
+						LIKE '%' || #{searchKeyword}|| '%')
+					</when>
+					<when test="searchCategory == 'user_idx'">
+						user_idx = #{searchKeyword}
+					</when>
+				</choose>
+			</if>
+			<if test="dateStart != null and dateStart != ''">
+				and regdate &gt;= TO_DATE(#{dateStart}, 'YYYY-MM-DD')
+			</if>
+			<if test="dateEnd != null and dateEnd != ''">
+				and regdate &lt; TO_DATE(#{dateEnd}, 'YYYY-MM-DD') + 1
+			</if>
+			<if test="customerStatusInteger != null">
+				AND ACCOUNT_STATUS = #{customerStatusInteger}
+			</if>
+		</where>
+	</select>
+
+
+	<select id="searchUserPaging" parameterType="java.util.Map"
+		resultType="user">
+		SELECT * FROM (
+		SELECT inner_table.*, ROWNUM AS rnum FROM (
+		SELECT *
+		FROM users
+		<where>
+			<if
+				test="search.searchCategory != null and search.searchKeyword != null and search.searchKeyword != ''">
+				<choose>
+					<when test="search.searchCategory == 'user_id'">
+						user_id LIKE '%' || #{search.searchKeyword} || '%'
+					</when>
+					<when test="search.searchCategory == 'user_name'">
+						user_name LIKE '%' || #{search.searchKeyword} || '%'
+					</when>
+					<when test="search.searchCategory == 'email'">
+						email LIKE '%' || #{search.searchKeyword} || '%'
+					</when>
+					<when test="search.searchCategory == 'phone'">
+						phone LIKE '%' || #{search.searchKeyword} || '%'
+					</when>
+					<when test="search.searchCategory == 'address'">
+						(address1 LIKE '%' || #{search.searchKeyword} || '%' OR
+						address2 LIKE '%' ||
+						#{search.searchKeyword} || '%')
+					</when>
+					<when test="search.searchCategory == 'user_idx'">
+						user_idx = #{search.searchKeyword}
+					</when>
+				</choose>
+			</if>
+			<if test="search.dateStart != null and search.dateStart != ''">
+				AND regdate &gt;= TO_DATE(#{search.dateStart},
+				'YYYY-MM-DD')
+			</if>
+			<if test="search.dateEnd != null and search.dateEnd != ''">
+				AND regdate &lt; TO_DATE(#{search.dateEnd}, 'YYYY-MM-DD')
+				+ 1
+			</if>
+			<if test="search.customerStatusInteger != null">
+				AND ACCOUNT_STATUS = #{search.customerStatusInteger}
+			</if>
+		</where>
+		<choose>
+			<when test="search.sortOption == 'userIdx'">
+				ORDER BY user_idx
+			</when>
+			<when test="search.sortOption == 'userIdxDesc'">
+				ORDER BY user_idx DESC
+			</when>
+			<when test="search.sortOption == 'latest'">
+				ORDER BY regdate DESC, user_idx DESC
+			</when>
+			<when test="search.sortOption == 'userId'">
+				ORDER BY user_id ASC, user_idx ASC
+			</when>
+			<when test="search.sortOption == 'userIdDesc'">
+				ORDER BY user_id DESC, user_idx DESC
+			</when>
+			<when test="search.sortOption == 'userName'">
+				ORDER BY user_name ASC, user_idx ASC
+			</when>
+			<when test="search.sortOption == 'userNameDesc'">
+				ORDER BY user_name DESC, user_idx DESC
+			</when>
+			<otherwise>
+				ORDER BY regdate DESC, user_idx DESC
+			</otherwise>
+		</choose>
+		) inner_table
+		WHERE ROWNUM &lt;= #{endRow}
+		)
+		WHERE rnum &gt;= #{startRow}
+	</select>
+
+
+	<select id="searchUserWithFillter"
+		parameterType="vo.SearchCustomerVO" resultType="user">
+		select * from users
+		<where>
+			<if test="searchCategory != null and searchKeyword != null and searchKeyword != ''">
+				<choose>
+					<when test="searchCategory == 'user_id'">
+						user_id LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test="searchCategory == 'user_name'">
+						user_name LIKE '%' || #{searchKeyword} || '%'
+					</when>
+
+					<when test="searchCategory == 'email'">
+						email LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test="searchCategory == 'phone'">
+						phone LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test="searchCategory == 'address'">
+						<!-- user_name 컬럼 검색 조건 -->
+						(address1 LIKE '%' || #{searchKeyword} || '%' OR address2 LIKE '%' ||
+						#{searchKeyword} || '%')
+					</when>
+
+					<when test="searchCategory == 'user_idx'">
+						user_idx = #{searchKeyword}
+					</when>
+				</choose>
+			</if>
+
+			<if test="dateStart != null and dateStart != ''">
+				and regdate &gt;= TO_DATE(#{dateStart}, 'YYYY-MM-DD')
+			</if>
+			<if test="dateEnd != null and dateEnd != ''">
+				and regdate &lt; TO_DATE(#{dateEnd}, 'YYYY-MM-DD') + 1
+			</if>
+			<if test="selectedStatusInteger != null">
+				AND ACCOUNT_STATUS = #{selectedStatusInteger}
+			</if>
+		</where>
+
+		<choose>
+			<when test="sortOption == 'userIdx'">
+				ORDER BY user_idx
+			</when>
+			<when test="sortOption == 'userIdxDesc'">
+				ORDER BY user_idx desc
+			</when>
+			<when test="sortOption == 'latest'">
+				ORDER BY regdate DESC, user_idx DESC
+			</when>
+			<when test="sortOption == 'userId'">
+				ORDER BY user_id ASC, user_idx ASC
+			</when>
+			<when test="sortOption == 'userIdDesc'">
+				ORDER BY user_id DESC, user_idx DESC
+			</when>
+			<when test="sortOption == 'userName'">
+				ORDER BY user_name ASC, user_idx ASC
+			</when>
+			<when test="sortOption == 'userNameDesc'">
+				ORDER BY user_name DESC, user_idx DESC
+			</when>
+			<otherwise>
+				ORDER BY regdate DESC, user_idx DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<update id="updateUser" parameterType="vo.UserVO">
+		update users set
+		user_id =
+		#{user_id},
+		user_pwd = #{user_pwd},
+		user_name=#{user_name},
+		birth =
+		TO_DATE(#{birth}, 'YYYY-MM-DD HH24:MI:SS'),
+		gender=#{gender},
+		email=#{email},
+		phone = #{phone},
+		address1 =#{address1},
+		address2 =
+		#{address2},
+		account_status = #{account_status}
+		where
+		user_idx=#{user_idx}
+	</update>
+
+	
+	<delete id="deleteUser" parameterType="java.util.List">
+		DELETE FROM users WHERE user_idx IN
+		<foreach item="id" collection="list" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteReview" parameterType="java.util.List">
+		DELETE FROM review WHERE user_idx IN
+		<foreach item="id" collection="list" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteCart" parameterType="java.util.List">
+		DELETE FROM cart WHERE user_idx IN
+		<foreach item="id" collection="list" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteFavorite" parameterType="java.util.List">
+		DELETE FROM favorite WHERE user_idx IN
+		<foreach item="id" collection="list" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteInquiry" parameterType="java.util.List">
+		DELETE FROM inquiry WHERE user_idx IN
+		<foreach item="id" collection="list" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteApprovalPending" parameterType="java.util.List">
+		DELETE FROM approval_pending WHERE user_idx IN
+		<foreach item="id" collection="list" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>  
+
+
+
+
+
+
+
+
+
+
+
+

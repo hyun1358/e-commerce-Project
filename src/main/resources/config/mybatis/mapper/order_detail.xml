@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="od">
+
+	<select id="orderDetailList" parameterType="String"
+		resultType="orderlist">
+		select * from order_view where order_id = #{order_id}
+	</select>
+
+
+	<insert id="orderDetail_insert" parameterType="detail">
+		INSERT INTO
+		order_detail (
+		order_id, product_id, quantity, amount, refund_status,
+		refund_requested_at,
+		note
+		) VALUES (
+		#{order_id}, #{product_id},
+		#{quantity}, #{amount}, 'N', NULL, NULL
+		)
+	</insert>
+
+
+	<!-- 나중에 반품이나 교환요청시 사용할 예정 -->
+	<update id="updateRefundStatus" parameterType="vo.RequestFormVO">
+		UPDATE order_detail
+		SET refund_status = #{request_type},
+		refund_requested_at = SYSDATE,
+		note = #{note}
+		WHERE order_id = #{order_id}
+		AND product_id = #{product_id}
+		AND refund_status = 'N'
+	</update>
+
+	<!-- 수량,가격 -->
+	<select id="delivery_quantity_amount"
+		resultType="vo.OrderDeliveryVO" parameterType="java.util.Map">
+		select quantity, amount
+		from order_detail where order_id = #{order_id} and product_id =
+		#{product_id}
+	</select>
+
+
+	<select id="selectOrderIdsByUser" parameterType="int"
+		resultType="vo.WishlistVO">
+		SELECT * FROM favorite WHERE user_idx = #{user_idx}
+	</select>
+
+	<!-- review-list-empty -->
+	<select id="selectReviewIdsByUser" parameterType="int"
+		resultType="string">
+		SELECT order_id
+		FROM order_view
+		WHERE user_idx = #{user_idx}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

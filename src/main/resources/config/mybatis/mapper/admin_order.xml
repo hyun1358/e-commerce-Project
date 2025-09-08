@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminorder">
+
+	<select id="order_listAll" resultType="vo.AdminOrderVO">
+		select * from
+		admin_order_view
+		ORDER BY order_date DESC, user_idx DESC, order_id DESC
+	</select>
+
+	<select id="orderCount" resultType="int">
+		select count(order_id) from
+		admin_order_view
+	</select>
+
+	<select id="orderPagingList" parameterType="java.util.Map"
+		resultType="vo.AdminOrderVO">
+		select * from
+		(select inner_table.*, ROWNUM as rnum
+		from
+		(select * from admin_order_view
+		ORDER BY order_date DESC, user_idx
+		DESC, order_id DESC
+		)inner_table where
+		ROWNUM &lt;= #{endRow}
+		)
+		where rnum
+		&gt;=
+		#{startRow}
+	</select>
+
+	<select id="searchOrdersPaging" parameterType="java.util.Map"
+		resultType="vo.AdminOrderVO">
+		select * from (
+		select inner_table.*, ROWNUM AS rnum from(
+		select * from
+		admin_order_view
+		<where>
+			<if
+				test="search.searchCategory != null and search.searchKeyword != null and search.searchKeyword != ''">
+				<choose>
+					<when test="search.searchCategory == 'user_id'">
+						user_id LIKE '%' || #{search.searchKeyword} || '%'
+					</when>
+					<when test="search.searchCategory == 'user_idx'">
+						user_idx = #{search.searchKeyword}
+					</when>
+					<when test="search.searchCategory == 'order_id'">
+						order_id LIKE '%' || #{search.searchKeyword} || '%'
+					</when>
+					<when test="search.searchCategory == 'shipping_name'">
+						shipping_name LIKE '%' || #{search.searchKeyword}
+						|| '%'
+					</when>
+					<when test="search.searchCategory == 'shipping_phone'">
+						shipping_phone LIKE '%' || #{search.searchKeyword}
+						|| '%'
+					</when>
+					<when test="search.searchCategory == 'address'">
+						delivery_address LIKE '%' ||
+						#{search.searchKeyword} ||
+						'%'
+					</when>
+					<when test="search.searchCategory == 'product_names'">
+						product_names LIKE '%' || #{search.searchKeyword}
+						|| '%'
+					</when>
+				</choose>
+			</if>
+
+			<if test="search.dateStart != null and search.dateStart != ''">
+				AND order_date &gt;= TO_DATE(#{search.dateStart},
+				'YYYY-MM-DD')
+			</if>
+			<if test="search.dateEnd != null and search.dateEnd != ''">
+				AND order_date &lt; TO_DATE(#{search.dateEnd},
+				'YYYY-MM-DD')
+				+ 1
+			</if>
+			<if
+				test="search.orderStatus != null and search.orderStatus != 'all'">
+				<choose>
+					<when test="search.orderStatus == 'paid'">
+						AND status = '결제완료'
+					</when>
+					<when test="search.orderStatus == 'ready'">
+						AND status = '준비중'
+					</when>
+					<when test="search.orderStatus == 'shipping'">
+						AND status = '배송중'
+					</when>
+					<when test="search.orderStatus == 'complete'">
+						AND status = '배송완료'
+					</when>
+				</choose>
+			</if>
+
+		</where>
+		<choose>
+			<when test="search.sortOption == 'latest'">
+				ORDER BY order_date DESC, user_idx DESC, order_id
+				DESC
+			</when>
+			<when test="search.sortOption == 'earliest'">
+				ORDER BY order_date ASC, user_idx ASC, order_id ASC
+			</when>
+			<when test="search.sortOption == 'amount_high'">
+				ORDER BY amount DESC, user_idx ASC, order_id ASC
+			</when>
+			<when test="search.sortOption == 'amount_low'">
+				ORDER BY amount ASC, user_idx ASC, order_id ASC
+			</when>
+			<when test="search.sortOption == 'userIdx'">
+				ORDER BY user_idx ASC, order_date DESC, order_id DESC
+			</when>
+			<when test="search.sortOption == 'userIdxDesc'">
+				ORDER BY user_idx DESC, order_date DESC, order_id
+				DESC
+			</when>
+
+			<when test="search.sortOption == 'status'">
+				ORDER BY
+				CASE status
+				WHEN '결제완료' THEN 1
+				WHEN '준비중' THEN
+				2
+				WHEN '배송중' THEN 3
+				WHEN '배송완료' THEN 4
+				ELSE 0
+				END,
+				order_date DESC,
+				order_id DESC
+			</when>
+			<otherwise>
+				ORDER BY order_date DESC, user_idx DESC, order_id DESC
+			</otherwise>
+		</choose>
+		) inner_table
+		WHERE ROWNUM &lt;= #{endRow}
+		)
+		WHERE rnum &gt;= #{startRow}
+
+	</select>
+
+	<select id="countOrderSearch" parameterType="vo.SearchOrderVO"
+		resultType="int">
+		select count(*) from
+		admin_order_view
+		<where>
+			<if
+				test="searchCategory != null and searchKeyword != null and searchKeyword != ''">
+				<choose>
+					<when test="searchCategory == 'user_id'">
+						user_id LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test="searchCategory == 'user_idx'">
+						user_idx = #{search.searchKeyword}
+					</when>
+					<when test="searchCategory == 'order_id'">
+						order_id LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test="searchCategory == 'shipping_name'">
+						shipping_name LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test="searchCategory == 'shipping_phone'">
+						shipping_phone LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test="searchCategory == 'address'">
+						delivery_address LIKE '%' || #{searchKeyword} ||
+						'%'
+					</when>
+					<when test="searchCategory == 'product_names'">
+						product_names LIKE '%' || #{searchKeyword}
+						|| '%'
+					</when>
+				</choose>
+			</if>
+
+			<if test="dateStart != null and dateStart != ''">
+				AND order_date &gt;= TO_DATE(#{dateStart},
+				'YYYY-MM-DD')
+			</if>
+			<if test="dateEnd != null and dateEnd != ''">
+				AND order_date &lt; TO_DATE(#{dateEnd},
+				'YYYY-MM-DD')
+				+ 1
+			</if>
+			<if test="orderStatus != null and orderStatus != 'all'">
+				<choose>
+					<when test="orderStatus == 'paid'">
+						AND status = '결제완료'
+					</when>
+					<when test="orderStatus == 'ready'">
+						AND status = '준비중'
+					</when>
+					<when test="orderStatus == 'shipping'">
+						AND status = '배송중'
+					</when>
+					<when test="orderStatus == 'complete'">
+						AND status = '배송완료'
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+
+	<select id="getOrderById" resultType="vo.OrdersVO"
+		parameterType="String">
+		select * from orders where order_id = #{order_id}
+	</select>
+
+	<update id="updateOrderStatus" parameterType="java.util.Map">
+		update orders set
+		status = #{orderStatus}
+		where order_id = #{order_id}
+	</update>
+
+	<delete id="deleteReviewByOrderId" parameterType="String">
+		delete from review where order_id = #{order_id}
+	</delete>
+
+	<!-- <delete id="deleteOrderDetailByOrderId" parameterType="String">
+		delete from order_detail where order_id = #{order_id}
+	</delete> -->
+	
+	<delete id="deleteApprovalPendingByOrderId" parameterType="String">
+		delete from approval_pending where order_id = #{order_id}
+	</delete>
+
+	<delete id="deleteOrderById" parameterType="String">
+		delete from orders where related_order_id = #{order_id}
+	</delete>
+	
+
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="i">
+	<insert id="inquiry_insert" parameterType="inquiry">
+		insert into inquiry values
+		(
+			seq_inq_idx.nextval, #{user_idx}, null, #{inquiryType}, #{title},
+			#{content}, sysdate, null, null, 
+			#{image1,jdbcType=VARCHAR}, #{image2,jdbcType=VARCHAR}, #{image3,jdbcType=VARCHAR}, #{image4,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<select id="inquiry_list" resultType="inquiry" parameterType="int">
+		select * from inquiry where user_idx = #{user_idx}
+	</select>
+	
+	<select id="inquiry_count" parameterType="int" resultType="int">
+		select count(*) from inquiry where user_idx = #{user_idx}
+	</select>
+</mapper>

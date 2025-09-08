@@ -1,0 +1,106 @@
+@charset "UTF-8";
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+}
+
+.logo_text span {
+	color: #4f5bd5;
+	margin-left: 10px;
+}
+
+body{
+    background-color: #f8f8f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+.login-container {
+	width: 100%;
+	max-width: 460px; 
+	background-color: white;
+	border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 40px;
+}
+
+.logo_text{
+	margin-bottom: 30px;
+}
+.logo_text span {
+	color: #4f5bd5;
+/* 	margin-left: 10px; */
+}
+
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #4f5bd5;
+}
+
+
+.login-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #4f5bd5;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover{
+	background-color: #3e4ac0; /* 더 어두운 블루 톤 */
+	/*  background-color: #6a74e6; */ /* 더 밝은 블루 톤 */
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px 15px;
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+.footer-links a {
+    color: #666;
+    text-decoration: none;
+    position: relative;
+}
+
+.footer-links a:not(:last-child)::after {
+    content: "·";
+    position: absolute;
+    right: -10px;
+    color: #999;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.input-group input::placeholder {
+    color: #bbb;
+}
